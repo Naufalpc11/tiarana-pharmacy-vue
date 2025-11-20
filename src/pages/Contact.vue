@@ -1,0 +1,284 @@
+<template>
+  <MainLayout>
+    <div class="contact-page flex flex-col gap-10">
+      <section class="contact-hero relative overflow-hidden rounded-[2.5rem] bg-cover bg-center" :style="heroStyle" aria-labelledby="contact-title">
+        <div class="contact-hero__overlay flex flex-col items-center gap-4 bg-slate-900/70 px-6 py-14 text-center text-white" ref="contactHeroOverlay">
+          <h1 id="contact-title" class="home-title text-4xl font-extrabold" ref="contactHeroTitle">Kontak</h1>
+          <p class="home-subtitle max-w-3xl text-lg text-white/80" ref="contactHeroSubtitle">
+            Butuh bantuan cek ketersediaan obat atau konsultasi? Hubungi kami melalui WhatsApp atau isi formulir di bawah.
+          </p>
+        </div>
+      </section>
+
+      <section class="contact-section rounded-[2rem] bg-white p-6 shadow-2xl shadow-indigo-900/5" aria-labelledby="contact-form-title">
+        <div class="contact-form-card space-y-6 rounded-[2rem] border border-slate-100 p-6 shadow-xl" ref="contactFormCard">
+          <h2 id="contact-form-title" class="section-title text-3xl font-bold text-indigo-950">Kirim Pesan</h2>
+          <form class="contact-form space-y-6" @submit.prevent="handleSubmitIntent">
+            <div class="contact-form__grid grid gap-6 md:grid-cols-2">
+              <div class="contact-form__field flex flex-col gap-2">
+                <InputField
+                  label="Nama"
+                  name="name"
+                  autocomplete="name"
+                  placeholder="Masukkan nama Anda"
+                  v-model="form.name"
+                  :error="errors.name"
+                  required
+                />
+              </div>
+              <div class="contact-form__field flex flex-col gap-2">
+                <InputField
+                  label="Email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  placeholder="contoh@email.com"
+                  v-model="form.email"
+                  :error="errors.email"
+                  required
+                />
+              </div>
+              <div class="contact-form__field contact-form__field--full flex flex-col gap-2">
+                <InputField
+                  label="Subjek"
+                  name="subject"
+                  placeholder="Tuliskan subjek pesan"
+                  v-model="form.subject"
+                  :error="errors.subject"
+                />
+              </div>
+              <div class="contact-form__field contact-form__field--full flex flex-col gap-2">
+                <InputField
+                  label="Pesan"
+                  name="message"
+                  placeholder="Ceritakan kebutuhan atau pertanyaan Anda di sini"
+                  v-model="form.message"
+                  :rows="7"
+                  textarea
+                  :error="errors.message"
+                  required
+                />
+              </div>
+            </div>
+            <div class="contact-form__actions flex justify-end">
+              <Button type="submit" size="lg" :disabled="formProcessing">
+                <template v-if="formProcessing">
+                  Mengirim...
+                </template>
+                <template v-else>
+                  Kirim
+                </template>
+              </Button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <Teleport to="body">
+      <transition name="contact-dialog-fade">
+        <div
+          v-if="isDialogVisible"
+          class="contact-dialog-backdrop fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 px-4"
+          role="dialog"
+          aria-modal="true"
+          @click.self="handleBackdropClick"
+        >
+          <div class="contact-dialog__panel w-full max-w-3xl">
+            <FeedbackDialog
+              v-if="isConfirmDialogOpen"
+              variant="confirm"
+              title="Kirim pesan sekarang?"
+              message="Pesan Anda akan langsung diteruskan ke tim apotek kami. Pastikan data sudah benar sebelum melanjutkan."
+              primary-label="Kirim Sekarang"
+              secondary-label="Periksa Lagi"
+              @primary="confirmSubmission"
+              @secondary="closeConfirmDialog"
+            />
+            <FeedbackDialog
+              v-else-if="isSuccessDialogOpen"
+              variant="success"
+              title="Pesan berhasil dikirim"
+              message="Terima kasih! Tim kami akan segera menghubungi Anda melalui kontak yang diberikan."
+              primary-label="Selesai"
+              @primary="closeSuccessDialog"
+            />
+            <FeedbackDialog
+              v-else-if="isErrorDialogOpen"
+              variant="error"
+              :title="errorDialog.title"
+              :message="errorDialog.message"
+              primary-label="Tutup"
+              @primary="closeErrorDialog"
+            />
+          </div>
+        </div>
+      </transition>
+    </Teleport>
+  </MainLayout>
+</template>
+
+<script setup>
+import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import { initializeContactAnimations } from '@/animation/contactAnimations'
+import Button from '@/components/Button.vue'
+import FeedbackDialog from '@/components/FeedbackDialog.vue'
+import InputField from '@/components/InputField.vue'
+import MainLayout from '@/layouts/MainLayout.vue'
+
+const heroImage = new URL('../assets/Images/Hero-bg.jpg', import.meta.url).href
+
+const form = reactive({
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
+})
+
+const errors = reactive({
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
+})
+
+const formProcessing = ref(false)
+const isConfirmDialogOpen = ref(false)
+const isSuccessDialogOpen = ref(false)
+const isErrorDialogOpen = ref(false)
+const errorDialog = ref({ title: '', message: '' })
+
+const heroStyle = computed(() => ({
+  backgroundImage: `url(${heroImage})`,
+}))
+
+const contactHeroOverlay = ref(null)
+const contactHeroTitle = ref(null)
+const contactHeroSubtitle = ref(null)
+const contactFormCard = ref(null)
+
+const isDialogVisible = computed(
+  () => isConfirmDialogOpen.value || isSuccessDialogOpen.value || isErrorDialogOpen.value
+)
+
+const clearErrors = () => {
+  errors.name = ''
+  errors.email = ''
+  errors.subject = ''
+  errors.message = ''
+}
+
+const validateForm = () => {
+  let hasError = false
+  const trimmedName = form.name.trim()
+  const trimmedEmail = form.email.trim()
+  const trimmedSubject = form.subject.trim()
+  const trimmedMessage = form.message.trim()
+
+  form.name = trimmedName
+  form.email = trimmedEmail
+  form.subject = trimmedSubject
+  form.message = trimmedMessage
+
+  if (!trimmedName) {
+    errors.name = 'Nama wajib diisi.'
+    hasError = true
+  }
+
+  if (!trimmedEmail) {
+    errors.email = 'Email wajib diisi.'
+    hasError = true
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+    errors.email = 'Format email tidak valid.'
+    hasError = true
+  }
+
+  if (!trimmedMessage) {
+    errors.message = 'Pesan wajib diisi.'
+    hasError = true
+  }
+
+  return hasError
+}
+
+const handleSubmitIntent = () => {
+  clearErrors()
+  if (!validateForm()) {
+    isConfirmDialogOpen.value = true
+  }
+}
+
+const closeConfirmDialog = () => {
+  isConfirmDialogOpen.value = false
+}
+
+const simulateSubmission = () =>
+  new Promise((resolve) => {
+    setTimeout(resolve, 1200)
+  })
+
+const confirmSubmission = async () => {
+  if (formProcessing.value) {
+    return
+  }
+
+  formProcessing.value = true
+  isConfirmDialogOpen.value = false
+
+  try {
+    await simulateSubmission()
+    form.name = ''
+    form.email = ''
+    form.subject = ''
+    form.message = ''
+    clearErrors()
+    isSuccessDialogOpen.value = true
+  } catch (error) {
+    errorDialog.value = {
+      title: 'Gagal mengirim pesan',
+      message: 'Sistem sedang mengalami kendala. Silakan coba kembali dalam beberapa saat.',
+    }
+    isErrorDialogOpen.value = true
+  } finally {
+    formProcessing.value = false
+  }
+}
+
+const closeSuccessDialog = () => {
+  isSuccessDialogOpen.value = false
+}
+
+const closeErrorDialog = () => {
+  isErrorDialogOpen.value = false
+}
+
+const handleBackdropClick = () => {
+  if (isSuccessDialogOpen.value) {
+    closeSuccessDialog()
+  } else if (isErrorDialogOpen.value) {
+    closeErrorDialog()
+  } else if (isConfirmDialogOpen.value) {
+    closeConfirmDialog()
+  }
+}
+
+const handleKeydown = (event) => {
+  if (event.key === 'Escape' && isDialogVisible.value) {
+    handleBackdropClick()
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+  initializeContactAnimations({
+    heroOverlay: contactHeroOverlay.value,
+    heroTitle: contactHeroTitle.value,
+    heroSubtitle: contactHeroSubtitle.value,
+    formCard: contactFormCard.value,
+  })
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown)
+})
+</script>

@@ -1,17 +1,18 @@
 <template>
   <MainLayout>
     <main class="bg-slate-50 text-slate-900">
-
+      <!-- HERO -->
       <header
-        class="hero-bg-image relative min-h-[600px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
-              overflow-hidden bg-cover bg-center"
+        class="about-header hero-bg-image relative min-h-[600px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
+               overflow-hidden bg-cover bg-center"
         :style="{ backgroundImage: `url(${pageData.images.hero})` }"
       >
-        <div class="absolute inset-0 bg-slate-900/70"></div>
+        <!-- overlay hook for GSAP -->
+        <div class="about-header-overlay absolute inset-0 bg-slate-900/70"></div>
 
         <div
           class="relative z-10 mx-auto flex min-h-[600px] max-w-4xl flex-col items-center justify-center
-                gap-4 px-4 pt-20 text-center text-white md:pt-24"
+                 gap-4 px-4 pt-20 text-center text-white md:pt-24"
         >
           <h1 class="text-3xl font-extrabold md:text-4xl lg:text-5xl">
             Tentang Kami
@@ -49,6 +50,7 @@
         </div>
       </header>
 
+      <!-- VISI -->
       <section class="bg-white py-12 md:py-16">
         <div class="mx-auto max-w-3xl px-4 text-center">
           <h2 class="text-lg font-semibold text-blue-700">Visi</h2>
@@ -58,7 +60,8 @@
         </div>
       </section>
 
-      <section class="bg-slate-50 py-10 md:py-14">
+      <!-- MISI -->
+      <section class="values-section bg-slate-50 py-10 md:py-14">
         <div class="mx-auto max-w-6xl px-4">
           <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">
             Misi
@@ -75,15 +78,17 @@
         </div>
       </section>
 
-      <section class="bg-white py-12 md:py-16">
+      <!-- SEJARAH -->
+      <section class="history-section bg-white py-12 md:py-16">
         <div class="mx-auto grid max-w-6xl gap-10 px-4 lg:grid-cols-2 lg:items-start">
-          <div>
+          <div class="history-content">
             <h2 class="text-lg font-semibold text-blue-700">Sejarah Kami</h2>
             <p class="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
               {{ pageData.history.text }}
             </p>
 
-            <div class="mt-6 grid gap-4 text-sm sm:grid-cols-3">
+            <!-- stats -->
+            <div class="history-stats mt-6 grid gap-4 text-sm sm:grid-cols-3">
               <HistoryStatCard
                 v-for="(stat, index) in pageData.history.stats"
                 :key="index"
@@ -104,21 +109,24 @@
         </div>
       </section>
 
-      <section class="bg-slate-50 py-12 md:py-16">
+      <!-- APOTEKER -->
+      <section class="team-section bg-slate-50 py-12 md:py-16">
         <div class="mx-auto max-w-6xl px-4">
           <h2 class="text-xl font-bold text-indigo-950">Apoteker Kami</h2>
           <p class="mt-1 text-sm text-slate-500">
             Kenali apoteker yang siap membantu Anda
           </p>
 
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg md:p-8">
+          <div class="pharmacist-card mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg md:p-8">
             <div class="flex flex-col gap-6 md:flex-row md:items-start">
+              <!-- Foto -->
               <img
                 :src="pageData.images.pharmacist"
                 alt="apoteker"
                 class="h-24 w-24 shrink-0 rounded-full object-cover ring-4 ring-blue-100 md:h-28 md:w-28"
               />
 
+              <!-- Info -->
               <div class="flex-1">
                 <h3 class="text-lg font-semibold text-slate-900">
                   {{ pageData.pharmacist.name }}
@@ -127,6 +135,7 @@
                   {{ pageData.pharmacist.title }}
                 </p>
 
+                <!-- Badge -->
                 <div class="mt-3 flex flex-wrap gap-2 text-xs">
                   <span
                     v-for="(cred, index) in pageData.pharmacist.credentials"
@@ -145,9 +154,10 @@
                   </span>
                 </div>
 
-                <div class="mt-4 grid gap-3 md:grid-cols-3">
+                <!-- STRA + SIPA (sejajar) -->
+                <div class="mt-4 grid gap-3 md:grid-cols-2">
                   <div
-                    v-for="(detail, index) in pageData.pharmacist.details"
+                    v-for="(detail, index) in pageData.pharmacist.details.slice(0, 2)"
                     :key="index"
                     class="rounded-xl border border-slate-200 p-3 text-sm"
                   >
@@ -159,19 +169,34 @@
                     </p>
                   </div>
                 </div>
+
+                <!-- Jadwal full width -->
+                <div
+                  v-if="pageData.pharmacist.details[2]"
+                  class="mt-3 rounded-xl border border-slate-200 p-3 text-sm"
+                >
+                  <p class="font-semibold text-slate-900">
+                    {{ pageData.pharmacist.details[2].label }}
+                  </p>
+                  <p class="mt-1 text-slate-600">
+                    {{ pageData.pharmacist.details[2].value }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="lokasi" class="bg-slate-50 py-12 md:py-16">
+      <!-- LOKASI -->
+      <section id="lokasi" class="location-section bg-slate-50 py-12 md:py-16">
         <div class="mx-auto max-w-6xl px-4">
           <h2 class="text-center text-xl font-bold text-indigo-950">
             Lokasi Kami
           </h2>
 
           <div class="mt-8 grid gap-6 lg:grid-cols-2 lg:items-start">
+            <!-- kiri -->
             <div id="kontak" class="space-y-4">
               <ContactInfoCard
                 title="Alamat"
@@ -197,9 +222,8 @@
               />
             </div>
 
-            <div
-              class="overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/5 ring-1 ring-slate-200"
-            >
+            <!-- kanan -->
+            <div class="map-container overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/5 ring-1 ring-slate-200">
               <img
                 :src="pageData.images.map"
                 alt="Map lokasi"
@@ -209,8 +233,6 @@
           </div>
         </div>
       </section>
-
-
     </main>
   </MainLayout>
 </template>
@@ -221,8 +243,9 @@ import ContactInfoCard from "@/components/ContactInfoCard.vue";
 import HistoryStatCard from "@/components/HistoryStatCard.vue";
 import MissionCard from "@/components/MissionCard.vue";
 import MainLayout from "@/layouts/MainLayout.vue";
+import { onMounted, reactive } from "vue";
 
-import { reactive } from "vue";
+import { initializeAboutUsAnimations } from "@/animation/aboutUsAnimations";
 
 import interiorImg from "@/assets/Images/Interior.jpg";
 
@@ -291,10 +314,7 @@ const handleCopy = async (text) => {
   if (!text) return;
   try {
     await navigator.clipboard.writeText(text);
-    // kalau mau notif, boleh pakai alert/toast
-    // alert("Berhasil disalin!");
   } catch (e) {
-    // fallback kalau clipboard API gagal
     const textarea = document.createElement("textarea");
     textarea.value = text;
     textarea.setAttribute("readonly", "");
@@ -304,8 +324,10 @@ const handleCopy = async (text) => {
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-    // alert("Berhasil disalin!");
   }
 };
 
+onMounted(() => {
+  initializeAboutUsAnimations();
+});
 </script>

@@ -14,7 +14,6 @@ const routes = [
   { path: "/artikel", name: "artikel", component: Artikel },
   { path: "/contact", name: "contact", component: Contact },
 
-  // detail artikel (opsional)
   {
     path: "/artikel/:id",
     name: "artikel-detail",
@@ -22,10 +21,8 @@ const routes = [
     props: true,
   },
 
-  // report bug (sesuai Header.vue kamu)
   { path: "/report-bug", name: "report-bug", component: ReportBug },
 
-  // fallback 404
   { path: "/:pathMatch(.*)*", name: "not-found", component: NotFound },
 ];
 

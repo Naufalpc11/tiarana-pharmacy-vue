@@ -4,12 +4,19 @@
     :class="{ 'shadow-lg shadow-slate-900/10 bg-white/95': isScrolled }"
   >
     <nav class="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-      <RouterLink to="/" class="logo-link flex items-center gap-3" aria-label="Beranda" @click="closeMenu">
-        <img :src="logoWithoutText" alt="Logo Tiarana" class="h-11 w-11" />
-        <div class="hidden flex-col text-sm font-semibold uppercase tracking-[0.3em] text-slate-900 sm:flex">
-          <span>Tiarana</span>
-          <span>Pharmacy</span>
-        </div>
+
+      <!-- LOGO: cuma gambar, ukuran proporsional -->
+      <RouterLink
+        to="/"
+        class="logo-link flex items-center"
+        aria-label="Beranda"
+        @click="closeMenu"
+      >
+        <img
+          :src="logoWithoutText"
+          alt="Logo Tiarana Farma"
+          class="h-9 w-auto object-contain sm:h-10 md:h-11 lg:h-12"
+        />
       </RouterLink>
 
       <button
@@ -34,29 +41,29 @@
         ></span>
       </button>
 
+      <!-- NAV LINKS -->
       <div
-  class="nav-links absolute left-4 right-4 top-full mt-3 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white/95 p-4
-         opacity-0 shadow-2xl shadow-slate-900/10 transition duration-200
-         pointer-events-none -translate-y-2
-         md:static md:mt-0 md:flex md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent md:p-0
-         md:opacity-100 md:shadow-none md:pointer-events-auto md:translate-y-0"
-  :class="{
-    'pointer-events-auto translate-y-0 opacity-100': isMenuOpen
-  }"
-  id="primary-navigation"
->
-  <RouterLink
-    v-for="link in navLinks"
-    :key="link.to"
-    :to="link.to"
-    class="nav-link text-base font-medium text-slate-700 transition hover:text-indigo-700"
-    :class="{ 'text-indigo-700': isActive(link.to) }"
-    @click="closeMenu"
-  >
-    {{ link.label }}
-  </RouterLink>
-
-</div>
+        class="nav-links absolute left-4 right-4 top-full mt-3 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white/95 p-4
+               opacity-0 shadow-2xl shadow-slate-900/10 transition duration-200
+               pointer-events-none -translate-y-2
+               md:static md:mt-0 md:flex md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent md:p-0
+               md:opacity-100 md:shadow-none md:pointer-events-auto md:translate-y-0"
+        :class="{
+          'pointer-events-auto translate-y-0 opacity-100': isMenuOpen
+        }"
+        id="primary-navigation"
+      >
+        <RouterLink
+          v-for="link in navLinks"
+          :key="link.to"
+          :to="link.to"
+          class="nav-link text-base font-medium text-slate-700 transition hover:text-indigo-700"
+          :class="{ 'text-indigo-700': isActive(link.to) }"
+          @click="closeMenu"
+        >
+          {{ link.label }}
+        </RouterLink>
+      </div>
 
     </nav>
   </header>
@@ -77,7 +84,7 @@ const navLinks = [
   { label: 'Kontak', to: '/contact' },
 ]
 
-const logoWithoutText = new URL('../assets/Icon/tiarana_b_icon.svg', import.meta.url).href
+const logoWithoutText = new URL('../assets/Images/logo/Logo_Texed.png', import.meta.url).href
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
@@ -98,17 +105,13 @@ const closeMenu = () => {
 }
 
 const isActive = (path) => {
-  if (path === '/') {
-    return route.path === '/'
-  }
+  if (path === '/') return route.path === '/'
   return route.path.startsWith(path)
 }
 
 watch(
   () => route.fullPath,
-  () => {
-    closeMenu()
-  }
+  () => closeMenu()
 )
 
 onMounted(() => {
@@ -121,3 +124,4 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
 })
 </script>
+  

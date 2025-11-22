@@ -1,32 +1,69 @@
 <template>
   <MainLayout>
-    <div class="artikel-page flex flex-col gap-8">
-      <header class="artikel-hero relative overflow-hidden rounded-[2.5rem] bg-cover bg-center p-10 text-white shadow-2xl shadow-indigo-900/10" role="banner" :style="{ backgroundImage: `url(${heroImage})` }">
-        <div class="artikel-hero__overlay flex flex-col items-center gap-4 rounded-[2rem] bg-slate-900/70 px-4 py-10 text-center text-white backdrop-blur" ref="artikelHeroOverlay">
-          <h1 class="home-title text-4xl font-extrabold tracking-tight sm:text-5xl" ref="artikelHeroTitle">Artikel</h1>
-          <p class="home-subtitle max-w-3xl text-lg text-white/80" ref="artikelHeroSubtitle">
-            Edukasi farmasi, tips kesehatan, info obat, pengumuman, dan promo terbaru dari Tiarana Farma.
-          </p>
-          <div class="artikel-controls flex w-full flex-col gap-4 md:flex-row md:items-center md:justify-center" ref="artikelSearchBar">
-            <label class="artikel-search flex w-full max-w-xl items-center gap-3 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-white shadow-inner backdrop-blur focus-within:border-white/80" aria-label="Cari artikel">
-              <i class="fa-solid fa-magnifying-glass artikel-search__icon text-white/70" aria-hidden="true"></i>
+    <div class="artikel-page flex flex-col gap-10 pb-16">
+      <header
+        class="artikel-hero relative overflow-hidden bg-cover bg-center text-white shadow-md"
+        role="banner"
+        :style="{ backgroundImage: `url(${heroImage})` }"
+      >
+        <div class="absolute inset-0 bg-slate-900/55"></div>
+
+        <div
+          class="relative mx-auto flex max-w-6xl flex-col gap-6 px-4 py-16 sm:px-6 lg:px-8"
+          ref="artikelHeroOverlay"
+        >
+          <div class="space-y-3">
+            <h1
+              class="home-title text-[2.6rem] font-extrabold leading-tight tracking-tight text-white sm:text-5xl"
+              ref="artikelHeroTitle"
+            >
+              Artikel
+            </h1>
+
+            <p
+              class="home-subtitle max-w-2xl text-base text-white/85 sm:text-lg"
+              ref="artikelHeroSubtitle"
+            >
+              Edukasi farmasi, tips kesehatan, info obat, pengumuman, dan promo
+              terbaru dari Tiarana Farma.
+            </p>
+          </div>
+
+          <div
+            class="artikel-controls mt-2 flex w-full flex-col gap-3 sm:max-w-xl md:max-w-2xl md:flex-row md:items-center"
+            ref="artikelSearchBar"
+          >
+            <label
+              class="artikel-search flex w-full items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 text-sm text-slate-600 shadow-md shadow-slate-900/10 ring-1 ring-slate-200 focus-within:ring-2 focus-within:ring-indigo-500"
+              aria-label="Cari artikel"
+            >
+              <i
+                class="fa-solid fa-magnifying-glass artikel-search__icon text-slate-400"
+                aria-hidden="true"
+              ></i>
               <input
                 type="search"
                 placeholder="Cari artikel..."
                 autocomplete="off"
-                class="artikel-search__input flex-1 bg-transparent text-base text-white placeholder:text-white/60 focus:outline-none"
+                class="artikel-search__input flex-1 border-none bg-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none"
                 v-model="query"
               />
             </label>
 
-            <div class="artikel-sort flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white">
-              <label for="artikel-sort-select" class="artikel-sort__label">Urutkan</label>
+            <div
+              class="artikel-sort flex shrink-0 items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-xs font-medium text-slate-700 shadow-sm shadow-slate-900/5 ring-1 ring-slate-200"
+            >
+              <span class="artikel-sort__label hidden sm:inline">Urutkan:</span>
               <select
                 id="artikel-sort-select"
-                class="artikel-sort__select rounded-full bg-white/90 px-3 py-2 text-slate-900"
+                class="artikel-sort__select rounded-full border-none bg-transparent text-xs font-medium text-slate-900 focus:outline-none"
                 v-model="sortOption"
               >
-                <option v-for="option in sortOptions" :key="option.value" :value="option.value">
+                <option
+                  v-for="option in sortOptions"
+                  :key="option.value"
+                  :value="option.value"
+                >
                   {{ option.label }}
                 </option>
               </select>
@@ -35,28 +72,35 @@
         </div>
       </header>
 
-      <section class="artikel-section rounded-[2rem] bg-white p-6 shadow-2xl shadow-indigo-900/5" aria-label="Daftar Artikel">
-        <div class="artikel-grid grid gap-6 md:grid-cols-2 lg:grid-cols-3" ref="artikelGrid">
-          <template v-if="filteredArticles.length">
-            <ArticleCard
-              v-for="article in visibleArticles"
-              :key="article.id"
-              v-bind="article"
-            />
-          </template>
-          <p v-else class="artikel-empty rounded-2xl bg-slate-50 p-6 text-center text-slate-500" role="status">
-            tidak ada artikel terkait pencarian anda
-          </p>
-        </div>
-
+      <section
+        class="artikel-section mx-auto mt-6 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
+        aria-label="Daftar Artikel"
+      >
         <div
-          v-if="filteredArticles.length"
-          class="artikel-load-more mt-8 rounded-full bg-indigo-50 px-6 py-3 text-center text-sm text-indigo-700"
-          ref="loadMoreSentinel"
-          aria-live="polite"
+          class="artikel-grid grid gap-6 grid-cols-1 md:grid-cols-3"
+          ref="artikelGrid"
         >
-          <span v-if="hasMoreArticles">Gulir untuk menampilkan artikel berikutnya...</span>
-          <span v-else>Anda sudah mencapai akhir daftar artikel.</span>
+          <template v-if="visibleArticles.length">
+            <div
+              v-for="(article, index) in visibleArticles"
+              :key="article.id"
+              class="transition duration-700 ease-out transform"
+              :class="cardsVisible
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-5'"
+              :style="{ transitionDelay: cardsVisible ? index * 120 + 'ms' : '0ms' }"
+            >
+              <ArticleCard v-bind="article" />
+            </div>
+          </template>
+
+          <p
+            v-else
+            class="artikel-empty col-span-full rounded-2xl bg-white p-6 text-center text-sm text-slate-500 shadow-sm shadow-slate-900/5"
+            role="status"
+          >
+            Tidak ada artikel terkait pencarian Anda.
+          </p>
         </div>
       </section>
     </div>
@@ -64,63 +108,64 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { initializeArtikelAnimations } from '@/animation/artikelAnimations'
 import ArticleCard from '@/components/ArticleCard.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
-
-const props = defineProps({
-  articles: {
-    type: Array,
-    default: () => [],
-  },
-})
+import { computed, nextTick, onMounted, ref } from 'vue'
 
 const heroImage = new URL('../assets/Images/Hero-bg.jpg', import.meta.url).href
 const fallbackImage = heroImage
 
-const articles = computed(() =>
-  props.articles.map((article) => ({
+const rawArticles = [
+  {
+    id: 1,
+    title: 'Amoksisilin: Kapan Perlu, Kapan Tidak',
+    excerpt:
+      'Antibiotik bukan untuk semua batuk pilek. Kenali indikasi, efek samping, dan mengapa harus dihabiskan sesuai resep.',
+    date: '12/08/2025',
+  },
+  {
+    id: 2,
+    title: 'Panduan Swamedikasi yang Aman',
+    excerpt:
+      '5 langkah sederhana agar penggunaan obat bebas tetap aman: baca etiket, dosis tepat, dan konsultasi bila gejala tak membaik.',
+    date: '11/08/2025',
+  },
+  {
+    id: 3,
+    title: 'Cara Menyimpan Obat yang Benar di Iklim Tropis',
+    excerpt:
+      'Panas dan lembap bisa merusak obat. Simpan pada suhu yang dianjurkan, hindari kamar mandi/dapur, dan gunakan kotak obat tertutup.',
+    date: '11/08/2025',
+  },
+]
+
+const baseArticles = computed(() =>
+  rawArticles.map((article) => ({
     ...article,
-    image: article.image || fallbackImage,
-    imageAlt: article.imageAlt || article.title,
-    date: article.date || formatDate(article.datetime),
-    datetime: article.datetime || article.date,
-    href: article.href || `/artikel/${article.slug}`,
-  }))
+    image: fallbackImage,
+    imageAlt: article.title,
+    datetime: article.date, 
+    href: '#',
+  })),
 )
 
 const sortOptions = Object.freeze([
   { value: 'newest', label: 'Terbaru' },
   { value: 'oldest', label: 'Terlama' },
-  { value: 'az', label: 'Judul A-Z' },
+  { value: 'az', label: 'Judul A–Z' },
 ])
-
-const LOAD_STEP = 6
 
 const query = ref('')
 const sortOption = ref(sortOptions[0].value)
-const artikelHeroOverlay = ref(null)
-const artikelHeroTitle = ref(null)
-const artikelHeroSubtitle = ref(null)
-const artikelSearchBar = ref(null)
-const artikelGrid = ref(null)
-const loadMoreSentinel = ref(null)
-const visibleCount = ref(LOAD_STEP)
-
-let loadObserver
 
 const filteredArticles = computed(() => {
-  const list = articles.value
-
-  if (!query.value.trim()) {
-    return list
-  }
-
   const keyword = query.value.trim().toLowerCase()
-  return list.filter((article) => {
-    const title = (article.title || '').toLowerCase()
-    const excerpt = (article.excerpt || '').toLowerCase()
+  if (!keyword) return baseArticles.value
+
+  return baseArticles.value.filter((article) => {
+    const title = article.title.toLowerCase()
+    const excerpt = article.excerpt.toLowerCase()
     return title.includes(keyword) || excerpt.includes(keyword)
   })
 })
@@ -133,140 +178,34 @@ const sortedArticles = computed(() => {
   }
 
   if (sortOption.value === 'oldest') {
-    return list.sort((a, b) => compareByDate(a, b))
+    return list.sort((a, b) => a.id - b.id)
   }
 
-  return list.sort((a, b) => compareByDate(b, a))
+  return list.sort((a, b) => b.id - a.id)
 })
 
-const clampedVisibleCount = computed(() => Math.min(visibleCount.value, sortedArticles.value.length))
-const visibleArticles = computed(() => sortedArticles.value.slice(0, clampedVisibleCount.value))
-const hasMoreArticles = computed(() => clampedVisibleCount.value < sortedArticles.value.length)
+const visibleArticles = computed(() => sortedArticles.value.slice(0, 3))
 
-function formatDate(input) {
-  if (!input) {
-    return ''
-  }
+const cardsVisible = ref(false)
 
-  const date = new Date(input)
-  if (Number.isNaN(date.getTime())) {
-    return input
-  }
+const artikelHeroOverlay = ref(null)
+const artikelHeroTitle = ref(null)
+const artikelHeroSubtitle = ref(null)
+const artikelSearchBar = ref(null)
+const artikelGrid = ref(null)
 
-  return new Intl.DateTimeFormat('id-ID', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  }).format(date)
-}
-
-function compareByDate(articleA, articleB) {
-  const aTime = getTimeValue(articleA.datetime || articleA.date)
-  const bTime = getTimeValue(articleB.datetime || articleB.date)
-  return (aTime ?? 0) - (bTime ?? 0)
-}
-
-function getTimeValue(source) {
-  if (!source) {
-    return null
-  }
-
-  const date = new Date(source)
-  return Number.isNaN(date.getTime()) ? null : date.getTime()
-}
-
-const increaseVisibleArticles = () => {
-  if (!hasMoreArticles.value) {
-    return
-  }
-
-  visibleCount.value += LOAD_STEP
-}
-
-const setupObserver = () => {
-  if (!loadMoreSentinel.value || !hasMoreArticles.value) {
-    return
-  }
-
-  if (loadObserver) {
-    loadObserver.disconnect()
-  }
-
-  loadObserver = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        increaseVisibleArticles()
-      }
-    },
-    { rootMargin: '0px 0px 220px 0px' }
-  )
-
-  loadObserver.observe(loadMoreSentinel.value)
-}
-
-const resetInfiniteScroll = () => {
-  visibleCount.value = LOAD_STEP
-  if (loadObserver) {
-    loadObserver.disconnect()
-  }
-  requestAnimationFrame(setupObserver)
-}
-
-watch(
-  () => query.value,
-  () => {
-    resetInfiniteScroll()
-  }
-)
-
-watch(
-  () => sortOption.value,
-  () => {
-    resetInfiniteScroll()
-  }
-)
-
-watch(
-  () => filteredArticles.value.length,
-  () => {
-    visibleCount.value = LOAD_STEP
-  }
-)
-
-watch(
-  () => loadMoreSentinel.value,
-  () => {
-    setupObserver()
-  }
-)
-
-watch(
-  () => hasMoreArticles.value,
-  (hasMore) => {
-    if (!hasMore && loadObserver) {
-      loadObserver.disconnect()
-    } else if (hasMore) {
-      setupObserver()
-    }
-  }
-)
-
-onMounted(() => {
+onMounted(async () => {
   initializeArtikelAnimations({
     heroOverlay: artikelHeroOverlay.value,
     heroTitle: artikelHeroTitle.value,
     heroSubtitle: artikelHeroSubtitle.value,
     searchBar: artikelSearchBar.value,
-    artikelGrid: artikelGrid.value,
   })
 
-  setupObserver()
-})
 
-onBeforeUnmount(() => {
-  if (loadObserver) {
-    loadObserver.disconnect()
-  }
+  await nextTick()
+  setTimeout(() => {
+    cardsVisible.value = true
+  }, 80)
 })
 </script>
-

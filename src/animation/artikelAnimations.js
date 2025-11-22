@@ -1,87 +1,62 @@
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap } from "gsap"
 
 export const initializeArtikelAnimations = (refs = {}) => {
-  const {
-    heroOverlay,
-    heroTitle,
-    heroSubtitle,
-    searchBar,
-    artikelGrid,
-  } = refs;
+  const { heroOverlay, heroTitle, heroSubtitle, searchBar } = refs
 
-  const heroTimeline = gsap.timeline({
-    defaults: { ease: 'power3.out' },
-  });
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches
+  if (reduceMotion) return
+
+  const tl = gsap.timeline({
+    defaults: {
+      ease: "power3.out",
+      duration: 0.8,
+      overwrite: "auto",
+    },
+  })
 
   if (heroOverlay) {
-    heroTimeline.from(heroOverlay, {
+    tl.from(heroOverlay, {
       autoAlpha: 0,
-      duration: 1.2,
-    });
+      duration: 1.0,
+    })
   }
 
   if (heroTitle) {
-    heroTimeline.from(
+    tl.from(
       heroTitle,
       {
-        y: 80,
+        y: 60,
         autoAlpha: 0,
-        duration: 1,
-        ease: 'power4.out',
+        duration: 0.9,
+        ease: "power4.out",
       },
-      heroOverlay ? '-=0.7' : 0
-    );
+      heroOverlay ? "-=0.6" : 0
+    )
   }
 
   if (heroSubtitle) {
-    heroTimeline.from(
+    tl.from(
       heroSubtitle,
       {
-        y: 40,
+        y: 30,
         autoAlpha: 0,
-        duration: 0.9,
+        duration: 0.7,
       },
-      '-=0.6'
-    );
+      "-=0.4"
+    )
   }
 
   if (searchBar) {
-    heroTimeline.from(
+    tl.from(
       searchBar,
       {
         y: 20,
         autoAlpha: 0,
         duration: 0.6,
       },
-      '-=0.5'
-    );
+      "-=0.3"
+    )
   }
-
-  if (artikelGrid) {
-    const cards = gsap.utils.toArray(
-      artikelGrid.querySelectorAll('.article-card')
-    );
-
-    if (cards.length) {
-      gsap.from(cards, {
-        scrollTrigger: {
-          trigger: artikelGrid,
-          start: 'top 80%',
-          once: true,
-        },
-        y: 60,
-        autoAlpha: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        stagger: {
-          each: 0.15,
-          from: 'start',
-        },
-        clearProps: 'transform,opacity',
-      });
-    }
-  }
-};
+}

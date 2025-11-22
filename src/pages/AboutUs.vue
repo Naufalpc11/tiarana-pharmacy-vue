@@ -4,7 +4,7 @@
       <!-- HERO -->
       <header
         class="about-header hero-bg-image relative min-h-[600px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
-               overflow-hidden bg-cover bg-center"
+              overflow-hidden bg-cover bg-center"
         :style="{ backgroundImage: `url(${pageData.images.hero})` }"
       >
         <!-- overlay hook for GSAP -->
@@ -12,7 +12,7 @@
 
         <div
           class="relative z-10 mx-auto flex min-h-[600px] max-w-4xl flex-col items-center justify-center
-                 gap-4 px-4 pt-20 text-center text-white md:pt-24"
+                gap-4 px-4 pt-20 text-center text-white md:pt-24"
         >
           <h1 class="text-3xl font-extrabold md:text-4xl lg:text-5xl">
             Tentang Kami
@@ -22,7 +22,8 @@
             Apotek Tiarana Farma adalah apotek terpercaya yang menyediakan layanan kesehatan berkualitas dengan dukungan tim profesional.
           </p>
 
-          <div class="mt-2 flex flex-wrap justify-center gap-4">
+          <!-- tombolnya di sini -->
+          <div class="mt-3 flex flex-wrap justify-center gap-4">
             <Button
               variant="primary"
               size="md"
@@ -49,6 +50,7 @@
           </div>
         </div>
       </header>
+
 
       <!-- VISI -->
       <section class="bg-white py-12 md:py-16">

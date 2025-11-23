@@ -2,7 +2,8 @@
   <MainLayout>
     <div class="artikel-page flex flex-col gap-10 pb-16">
       <header
-        class="artikel-hero relative overflow-hidden bg-cover bg-center text-white shadow-md"
+        class="hero-bg-image relative min-h-[300px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
+                overflow-hidden bg-cover bg-center"
         role="banner"
         :style="{ backgroundImage: `url(${heroImage})` }"
       >

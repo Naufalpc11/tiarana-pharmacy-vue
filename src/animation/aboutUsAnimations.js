@@ -27,48 +27,65 @@ if (heroHeader && heroOverlay) {
     clearProps: "opacity,visibility,transform",
   });
 
-  const heroTL = gsap.timeline({ defaults: { ease: "power3.out" } });
+      // HERO (versi lebih simpel & aman, tanpa bikin elemen "hilang")
+    const heroTL = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-  heroTL
-    .from(heroOverlay, {
-      autoAlpha: 0,
-      duration: 1.2,
-    })
-    .from(
-      ".about-header h1",
-      {
-        y: 60,
+    heroTL
+      .from(".about-header", {
         autoAlpha: 0,
-        duration: 1,
-        ease: "power4.out",
-        immediateRender: false,
-      },
-      "-=0.6"
-    )
-    .from(
-      ".about-header p",
-      {
-        y: 30,
-        autoAlpha: 0,
+        y: 40,
         duration: 0.9,
-        stagger: 0.12,
-        immediateRender: false,
-      },
-      "-=0.5"
-    )
-    .from(
-      ".about-header .ui-button",
-      {
-        y: 20,
-        autoAlpha: 0,
-        duration: 0.8,
-        stagger: 0.12,
-        immediateRender: false, // kunci biar ga ngilang permanen
-      },
-      "-=0.45"
-    );
+      })
+      .from(
+        ".about-header h1",
+        {
+          y: 20,
+          autoAlpha: 0,
+          duration: 0.8,
+        },
+        "-=0.4"
+      )
+      .from(
+        ".about-header p",
+        {
+          y: 20,
+          autoAlpha: 0,
+          duration: 0.8,
+        },
+        "-=0.5"
+      )
+      .from(
+        ".about-header .mt-3", // container tombol
+        {
+          y: 20,
+          autoAlpha: 0,
+          duration: 0.7,
+        },
+        "-=0.5"
+      );
 }
 
+gsap.from(".vision-section h2", {
+      y: 25,
+      autoAlpha: 0,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: ".vision-section",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    gsap.from(".vision-section p", {
+      y: 25,
+      autoAlpha: 0,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: ".vision-section",
+        start: "top 80%",
+        toggleActions: "play none none reverse",
+      },
+    });
       ScrollTrigger.batch(".values-section .mission-card", {
         start: "top 80%",
         once: true,

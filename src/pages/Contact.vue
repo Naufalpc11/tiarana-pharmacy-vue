@@ -119,12 +119,12 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { initializeContactAnimations } from '@/animation/contactAnimations'
 import Button from '@/components/Button.vue'
 import FeedbackDialog from '@/components/FeedbackDialog.vue'
 import InputField from '@/components/InputField.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
+import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
 const heroImage = new URL('../assets/Images/Hero-bg.jpg', import.meta.url).href
 

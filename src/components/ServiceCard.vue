@@ -12,9 +12,9 @@
     <div class="service-content flex w-full flex-col gap-5 p-8 lg:w-1/2 lg:p-10">
       <div
         class="service-icon flex h-20 w-20 items-center justify-center rounded-full bg-indigo-600 text-white"
-        :class="{ 'border-2 border-indigo-600 bg-white text-indigo-700': Boolean(iconImageUrl) }"
+        :class="{ 'bg-indigo-950': Boolean(iconImageUrl) }"
       >
-        <img v-if="iconImageUrl" :src="iconImageUrl" :alt="`${title} icon`" class="h-12 w-12 object-contain" />
+        <img v-if="iconImageUrl" :src="iconImageUrl" :alt="`${title} icon`" class="h-12 w-12 object-contain invert brightness-0" />
         <i v-else :class="icon" class="text-3xl" />
       </div>
       <div class="space-y-4">

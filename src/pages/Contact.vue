@@ -9,8 +9,8 @@
       >
         <div class="absolute inset-0 bg-slate-900/55"></div>
 
-        <div class="relative mx-auto flex max-w-6xl flex-col items-start text-left gap-6 px-4 py-16 sm:px-6 lg:px-8" ref="contactHeroOverlay">
-          <div class="space-y-3">
+        <div class="relative mx-auto flex max-w-6xl flex-col items-start text-left gap-6 px-4 py-16 sm:px-6 lg:px-8 min-h-[480px] pt-70" ref="contactHeroOverlay">
+          <div class="space-y-4">
             <h1
               id="contact-title"
               class="home-title text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white"
@@ -20,7 +20,7 @@
             </h1>
 
             <p
-              class="home-subtitle mx-auto max-w-2xl text-lg text-white/85 sm:text-xl"
+              class="home-subtitle max-w-2xl text-lg text-white/85 sm:text-xl"
               ref="contactHeroSubtitle"
             >
               Butuh bantuan cek ketersediaan obat atau konsultasi? Hubungi kami melalui WhatsApp atau isi formulir di bawah.

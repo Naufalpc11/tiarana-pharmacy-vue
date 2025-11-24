@@ -31,10 +31,11 @@
             v-for="social in socialLinks"
             :key="social.label"
             :href="social.href"
-            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-xl transition hover:bg-white/10"
+            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-xl text-slate-200 transition hover:bg-white/10 hover:text-white"
             target="_blank"
             rel="noopener noreferrer"
             :aria-label="social.label"
+            :title="social.label"
           >
             <i :class="social.icon"></i>
           </a>
@@ -49,6 +50,7 @@
 
 <script setup>
 import { RouterLink } from 'vue-router'
+// Gunakan kembali class Font Awesome seperti versi sebelumnya
 
 const currentYear = new Date().getFullYear()
 
@@ -68,6 +70,7 @@ const footer = {
 const socialLinks = [
   { label: 'Facebook', href: 'https://facebook.com', icon: 'fab fa-facebook-f' },
   { label: 'Instagram', href: 'https://instagram.com', icon: 'fab fa-instagram' },
-  { label: 'WhatsApp', href: 'https://wa.me/6281234567890', icon: 'fab fa-whatsapp' },
+  { label: 'WhatsApp', href: 'https://wa.me/628125340996', icon: 'fab fa-whatsapp' },
 ]
+
 </script>

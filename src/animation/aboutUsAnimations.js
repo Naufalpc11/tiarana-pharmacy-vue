@@ -56,7 +56,7 @@ const heroOverlay = document.querySelector(".about-header-overlay");
         '-=0.65'
       )
       .to(
-        '.about-header .mt-3', // container tombol
+        '.about-header .mt-3',
         {
           y: 0,
           autoAlpha: 1,

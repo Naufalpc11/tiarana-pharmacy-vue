@@ -162,6 +162,17 @@ import ServiceCard from '@/components/ServiceCard.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import { computed, onMounted, ref } from 'vue';
 
+// Import local SVG icons
+import certificateIcon from '@/assets/Icon/certificate-solid-full.svg';
+import checkCircleIcon from '@/assets/Icon/circle-check-solid-full.svg';
+import clockIcon from '@/assets/Icon/clock-solid-full.svg';
+import heartPulseIcon from '@/assets/Icon/heart-pulse-solid-full.svg';
+import heartIcon from '@/assets/Icon/heart-solid-full.svg';
+import notesMedicalIcon from '@/assets/Icon/notes-medical-solid-full.svg';
+import pillsIcon from '@/assets/Icon/pills-solid-full.svg';
+import prescriptionIcon from '@/assets/Icon/prescription-bottle-medical-solid-full.svg';
+import shieldIcon from '@/assets/Icon/shield-halved-solid-full.svg';
+
 const props = defineProps({
   articles: {
     type: Array,
@@ -189,20 +200,20 @@ const defaultHero = {
 
 const defaultFeatureHighlights = [
   {
-    icon: 'fas fa-pills',
-    iconImageUrl: null,
+    icon: '',
+    iconImageUrl: pillsIcon,
     title: 'Resep & Non-Resep',
     description: 'Layanan obat resep dan non-resep dengan konsultasi farmasi profesional',
   },
   {
-    icon: 'fas fa-clock',
-    iconImageUrl: null,
+    icon: '',
+    iconImageUrl: clockIcon,
     title: 'Jam Operasional',
     description: 'Buka setiap hari dari pukul 08:00 - 22:00 WITA',
   },
   {
-    icon: 'fas fa-shield-alt',
-    iconImageUrl: null,
+    icon: '',
+    iconImageUrl: shieldIcon,
     title: 'Produk Terjamin',
     description: 'Keaslian dan kualitas produk terjamin dengan izin resmi BPOM',
   },
@@ -215,18 +226,18 @@ const defaultAbout = {
   imageUrl: interiorImage,
   features: [
     {
-      icon: 'fas fa-certificate',
-      iconImageUrl: null,
+      icon: '',
+      iconImageUrl: certificateIcon,
       title: 'Apoteker Berpengalaman',
     },
     {
-      icon: 'fas fa-check-circle',
-      iconImageUrl: null,
+      icon: '',
+      iconImageUrl: checkCircleIcon,
       title: 'Produk Berkualitas',
     },
     {
-      icon: 'fas fa-heart',
-      iconImageUrl: null,
+      icon: '',
+      iconImageUrl: heartIcon,
       title: 'Pelayanan Ramah',
     },
   ],
@@ -234,8 +245,8 @@ const defaultAbout = {
 
 const defaultServices = [
   {
-    icon: 'fas fa-prescription-bottle-alt',
-    iconImageUrl: null,
+    icon: '',
+    iconImageUrl: prescriptionIcon,
     title: 'Layanan Resep',
     description:
       'Kami menyediakan layanan resep dokter dengan standar tinggi dan penuh ketelitian. Apoteker profesional kami akan memastikan setiap resep diproses dengan tepat dan aman, disertai dengan konsultasi mengenai penggunaan obat yang benar.',
@@ -250,8 +261,8 @@ const defaultServices = [
     reverse: false,
   },
   {
-    icon: 'fas fa-notes-medical',
-    iconImageUrl: null,
+    icon: '',
+    iconImageUrl: notesMedicalIcon,
     title: 'Konsultasi Kesehatan',
     description:
       'Dapatkan konsultasi kesehatan gratis dengan apoteker berpengalaman kami. Kami siap membantu Anda dengan berbagai pertanyaan seputar kesehatan dan penggunaan obat yang tepat.',
@@ -266,8 +277,8 @@ const defaultServices = [
     reverse: true,
   },
   {
-    icon: 'fas fa-heartbeat',
-    iconImageUrl: null,
+    icon: '',
+    iconImageUrl: heartPulseIcon,
     title: 'Pemeriksaan Kesehatan',
     description:
       'Kami menyediakan layanan pemeriksaan kesehatan dasar untuk membantu Anda memantau kondisi kesehatan secara rutin. Dengan peralatan modern dan tenaga terlatih, kami siap memberikan pelayanan terbaik.',

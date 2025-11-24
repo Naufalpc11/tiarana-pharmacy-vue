@@ -54,9 +54,9 @@ const iconWrapperClass = computed(() => {
   // default besar
   let cls =
     "flex h-20 w-20 items-center justify-center rounded-full bg-indigo-100 text-indigo-900";
-  // kalau pakai image icon, kasih ring
+  // kalau pakai image icon, hapus background dan border
   if (props.iconImageUrl) {
-    cls += " bg-white border-2 border-indigo-600";
+    cls = "flex h-20 w-20 items-center justify-center rounded-full bg-transparent text-indigo-900";
   }
   return cls;
 });

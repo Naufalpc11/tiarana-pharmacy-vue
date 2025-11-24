@@ -10,10 +10,10 @@
         <div class="absolute inset-0 bg-slate-900/55"></div>
 
         <div
-          class="relative mx-auto flex max-w-6xl flex-col gap-6 px-4 py-16 sm:px-6 lg:px-8"
+          class="relative mx-auto flex max-w-6xl flex-col gap-6 px-4 py-16 sm:px-6 lg:px-8 min-h-[480px] pt-50"
           ref="artikelHeroOverlay"
         >
-          <div class="space-y-3">
+          <div class="space-y-4">
             <h1
               class="home-title text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white"
               ref="artikelHeroTitle"
@@ -28,46 +28,46 @@
               Edukasi farmasi, tips kesehatan, info obat, pengumuman, dan promo
               terbaru dari Tiarana Farma.
             </p>
-          </div>
-
-          <div
-            class="artikel-controls mt-2 flex w-full flex-col gap-3 sm:max-w-xl md:max-w-2xl md:flex-row md:items-center"
-            ref="artikelSearchBar"
-          >
-            <label
-              class="artikel-search flex w-full items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 text-sm text-slate-600 shadow-md shadow-slate-900/10 ring-1 ring-slate-200 focus-within:ring-2 focus-within:ring-indigo-500"
-              aria-label="Cari artikel"
-            >
-              <i
-                class="fa-solid fa-magnifying-glass artikel-search__icon text-slate-400"
-                aria-hidden="true"
-              ></i>
-              <input
-                type="search"
-                placeholder="Cari artikel..."
-                autocomplete="off"
-                class="artikel-search__input flex-1 border-none bg-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none"
-                v-model="query"
-              />
-            </label>
 
             <div
-              class="artikel-sort flex shrink-0 items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-xs font-medium text-slate-700 shadow-sm shadow-slate-900/5 ring-1 ring-slate-200"
+              class="artikel-controls mt-4 flex w-full flex-col gap-3 sm:max-w-xl md:max-w-2xl md:flex-row md:items-center"
+              ref="artikelSearchBar"
             >
-              <span class="artikel-sort__label hidden sm:inline">Urutkan:</span>
-              <select
-                id="artikel-sort-select"
-                class="artikel-sort__select rounded-full border-none bg-transparent text-xs font-medium text-slate-900 focus:outline-none"
-                v-model="sortOption"
+              <label
+                class="artikel-search flex w-full items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 text-sm text-slate-600 shadow-md shadow-slate-900/10 ring-1 ring-slate-200 focus-within:ring-2 focus-within:ring-indigo-500"
+                aria-label="Cari artikel"
               >
-                <option
-                  v-for="option in sortOptions"
-                  :key="option.value"
-                  :value="option.value"
+                <i
+                  class="fa-solid fa-magnifying-glass artikel-search__icon text-slate-400"
+                  aria-hidden="true"
+                ></i>
+                <input
+                  type="search"
+                  placeholder="Cari artikel..."
+                  autocomplete="off"
+                  class="artikel-search__input flex-1 border-none bg-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none"
+                  v-model="query"
+                />
+              </label>
+
+              <div
+                class="artikel-sort flex shrink-0 items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-xs font-medium text-slate-700 shadow-sm shadow-slate-900/5 ring-1 ring-slate-200"
+              >
+                <span class="artikel-sort__label hidden sm:inline">Urutkan:</span>
+                <select
+                  id="artikel-sort-select"
+                  class="artikel-sort__select rounded-full border-none bg-transparent text-xs font-medium text-slate-900 focus:outline-none"
+                  v-model="sortOption"
                 >
-                  {{ option.label }}
-                </option>
-              </select>
+                  <option
+                    v-for="option in sortOptions"
+                    :key="option.value"
+                    :value="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -111,44 +111,30 @@
 <script setup>
 import { initializeArtikelAnimations } from '@/animation/artikelAnimations'
 import ArticleCard from '@/components/ArticleCard.vue'
+import { articles } from '@/data/articles'
 import MainLayout from '@/layouts/MainLayout.vue'
 import { computed, nextTick, onMounted, ref } from 'vue'
 
 const heroImage = new URL('../assets/Images/Hero-bg.jpg', import.meta.url).href
 const fallbackImage = heroImage
 
-const rawArticles = [
-  {
-    id: 1,
-    title: 'Amoksisilin: Kapan Perlu, Kapan Tidak',
-    excerpt:
-      'Antibiotik bukan untuk semua batuk pilek. Kenali indikasi, efek samping, dan mengapa harus dihabiskan sesuai resep.',
-    date: '12/08/2025',
-  },
-  {
-    id: 2,
-    title: 'Panduan Swamedikasi yang Aman',
-    excerpt:
-      '5 langkah sederhana agar penggunaan obat bebas tetap aman: baca etiket, dosis tepat, dan konsultasi bila gejala tak membaik.',
-    date: '11/08/2025',
-  },
-  {
-    id: 3,
-    title: 'Cara Menyimpan Obat yang Benar di Iklim Tropis',
-    excerpt:
-      'Panas dan lembap bisa merusak obat. Simpan pada suhu yang dianjurkan, hindari kamar mandi/dapur, dan gunakan kotak obat tertutup.',
-    date: '11/08/2025',
-  },
-]
+const rawArticles = articles.map(a => ({
+  id: a.id,
+  title: a.title,
+  excerpt: a.excerpt,
+  date: new Date(a.published_at).toLocaleDateString('id-ID'),
+  published_at: a.published_at,
+  cover_image: a.cover_image,
+}))
 
 const baseArticles = computed(() =>
   rawArticles.map((article) => ({
     ...article,
-    image: fallbackImage,
+    image: article.cover_image || fallbackImage,
     imageAlt: article.title,
-    datetime: article.date, 
-    href: '#',
-  })),
+    datetime: article.published_at,
+    href: `/artikel/${article.id}`,
+  }))
 )
 
 const sortOptions = Object.freeze([

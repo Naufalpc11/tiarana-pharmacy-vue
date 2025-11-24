@@ -2,7 +2,7 @@
   <MainLayout>
     <div class="artikel-page flex flex-col gap-10 pb-16">
       <header
-        class="hero-bg-image relative min-h-[300px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
+        class="hero-bg-image relative min-h-[480px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
                 overflow-hidden bg-cover bg-center"
         role="banner"
         :style="{ backgroundImage: `url(${heroImage})` }"
@@ -15,14 +15,14 @@
         >
           <div class="space-y-3">
             <h1
-              class="home-title text-[2.6rem] font-extrabold leading-tight tracking-tight text-white sm:text-5xl"
+              class="home-title text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white"
               ref="artikelHeroTitle"
             >
               Artikel
             </h1>
 
             <p
-              class="home-subtitle max-w-2xl text-base text-white/85 sm:text-lg"
+              class="home-subtitle max-w-2xl text-lg text-white/85 sm:text-xl"
               ref="artikelHeroSubtitle"
             >
               Edukasi farmasi, tips kesehatan, info obat, pengumuman, dan promo

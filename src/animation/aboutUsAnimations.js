@@ -19,51 +19,52 @@ import { TextPlugin } from "gsap/TextPlugin";
       const heroHeader = document.querySelector(".about-header");
 const heroOverlay = document.querySelector(".about-header-overlay");
 
-if (heroHeader && heroOverlay) {
-  // pastiin teks + tombol visible dulu (biar ga ke-lock opacity 0)
-  gsap.set(".about-header h1, .about-header p, .about-header .ui-button", {
-    autoAlpha: 1,
-    y: 0,
-    clearProps: "opacity,visibility,transform",
-  });
+  if (heroHeader && heroOverlay) {
+    // prepare hero children for animation: start slightly offset and invisible
+    gsap.set('.about-header h1, .about-header p, .about-header .mt-3', {
+      autoAlpha: 0,
+      y: 18,
+      force3D: true,
+    });
 
-      // HERO (versi lebih simpel & aman, tanpa bikin elemen "hilang")
-    const heroTL = gsap.timeline({ defaults: { ease: "power3.out" } });
+    // HERO timeline: animate header (including background) then reveal children
+    const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     heroTL
-      .from(".about-header", {
+      .from('.about-header', {
         autoAlpha: 0,
-        y: 40,
-        duration: 0.9,
+        y: 30,
+        duration: 1.0,
       })
-      .from(
-        ".about-header h1",
+      .to(
+        '.about-header h1',
         {
-          y: 20,
-          autoAlpha: 0,
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.9,
+          ease: 'power4.out',
+        },
+        '-=0.6'
+      )
+      .to(
+        '.about-header p',
+        {
+          y: 0,
+          autoAlpha: 1,
           duration: 0.8,
         },
-        "-=0.4"
+        '-=0.65'
       )
-      .from(
-        ".about-header p",
+      .to(
+        '.about-header .mt-3', // container tombol
         {
-          y: 20,
-          autoAlpha: 0,
-          duration: 0.8,
-        },
-        "-=0.5"
-      )
-      .from(
-        ".about-header .mt-3", // container tombol
-        {
-          y: 20,
-          autoAlpha: 0,
+          y: 0,
+          autoAlpha: 1,
           duration: 0.7,
         },
-        "-=0.5"
+        '-=0.5'
       );
-}
+  }
 
 gsap.from(".vision-section h2", {
       y: 25,

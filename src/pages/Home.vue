@@ -3,7 +3,7 @@
     <div class="page-container flex flex-col gap-12">
 
       <section
-        class="hero-bg-image relative min-h-[600px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
+        class="hero-bg-image relative min-h-[800px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
                 overflow-hidden bg-cover bg-center"
         :style="heroBackgroundStyle"
         >

@@ -3,7 +3,7 @@
     <main class="bg-slate-50 text-slate-900">
       <!-- HERO -->
       <header
-        class="about-header hero-bg-image relative min-h-[600px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
+        class="about-header hero-bg-image relative min-h-[800px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
               overflow-hidden bg-cover bg-center"
         :style="{ backgroundImage: `url(${pageData.images.hero})` }"
       >
@@ -14,11 +14,11 @@
           class="relative z-10 mx-auto flex min-h-[600px] max-w-4xl flex-col items-center justify-center
                 gap-4 px-4 pt-20 text-center text-white md:pt-24"
         >
-          <h1 class="text-3xl font-extrabold md:text-4xl lg:text-5xl">
+          <h1 class="home-title text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
             Tentang Kami
           </h1>
 
-          <p class="max-w-2xl text-sm text-slate-100 md:text-base">
+          <p class="home-subtitle max-w-2xl text-lg text-white/85 sm:text-xl">
             Apotek Tiarana Farma adalah apotek terpercaya yang menyediakan layanan kesehatan berkualitas dengan dukungan tim profesional.
           </p>
 

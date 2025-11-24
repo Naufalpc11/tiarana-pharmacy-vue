@@ -4,6 +4,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export const initializeHomeAnimations = (refs) => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+
+  gsap.defaults({ ease: 'power3.out', duration: 0.9, overwrite: 'auto' });
+
   const {
     heroContent,
     heroTitle,
@@ -19,33 +24,29 @@ export const initializeHomeAnimations = (refs) => {
   } = refs;
 
   // Hero section animation mirrors About Us hero sequence
-  const heroTimeline = gsap.timeline({
-    defaults: {
-      ease: 'power3.out'
-    }
-  });
+  const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-  heroTimeline
-    .from(heroContent, {
-      autoAlpha: 0,
-      duration: 1.5
-    })
-    .from(heroTitle, {
-      y: 100,
-      autoAlpha: 0,
-      duration: 1.2,
-      ease: 'power4.out'
-    }, '-=0.8')
-    .from(
-      [heroSubtitle1, heroSubtitle2].filter(Boolean),
-      {
-        y: 50,
-        autoAlpha: 0,
-        duration: 1,
-        stagger: 0.2
-      },
-      '-=0.7'
-    );
+  // Prefer animating the full header (.hero-bg-image) so the background fades with the hero
+  const heroRoot = (heroContent && heroContent.closest)
+    ? heroContent.closest('.hero-bg-image')
+    : heroContent || document.querySelector('.hero-bg-image');
+
+  if (heroRoot) {
+    heroTimeline.from(heroRoot, { autoAlpha: 0, y: 40, duration: 0.9 });
+
+    if (heroTitle) {
+      heroTimeline.from(
+        heroTitle,
+        { y: 20, autoAlpha: 0, duration: 0.9, ease: 'power4.out' },
+        '-=0.5'
+      );
+    }
+
+    const subtitles = [heroSubtitle1, heroSubtitle2].filter(Boolean);
+    if (subtitles.length) {
+      heroTimeline.from(subtitles, { y: 20, autoAlpha: 0, duration: 0.8, stagger: 0.15 }, '-=0.6');
+    }
+  }
 
   // Features grid animation
   if (featuresGrid && featuresGrid.children.length) {

@@ -1,20 +1,39 @@
 <template>
   <MainLayout>
     <div class="contact-page flex flex-col gap-10">
-      <section class="contact-hero relative overflow-hidden rounded-[2.5rem] bg-cover bg-center" :style="heroStyle" aria-labelledby="contact-title">
-        <div class="contact-hero__overlay flex flex-col items-center gap-4 bg-slate-900/70 px-6 py-14 text-center text-white" ref="contactHeroOverlay">
-          <h1 id="contact-title" class="home-title text-4xl font-extrabold" ref="contactHeroTitle">Kontak</h1>
-          <p class="home-subtitle max-w-3xl text-lg text-white/80" ref="contactHeroSubtitle">
-            Butuh bantuan cek ketersediaan obat atau konsultasi? Hubungi kami melalui WhatsApp atau isi formulir di bawah.
-          </p>
-        </div>
-      </section>
+      <header
+        class="hero-bg-image relative min-h-[480px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
+                overflow-hidden bg-cover bg-center"
+        role="banner"
+        :style="heroStyle"
+      >
+        <div class="absolute inset-0 bg-slate-900/55"></div>
 
-      <section class="contact-section rounded-[2rem] bg-white p-6 shadow-2xl shadow-indigo-900/5" aria-labelledby="contact-form-title">
-        <div class="contact-form-card space-y-6 rounded-[2rem] border border-slate-100 p-6 shadow-xl" ref="contactFormCard">
+        <div class="relative mx-auto flex max-w-6xl flex-col items-start text-left gap-6 px-4 py-16 sm:px-6 lg:px-8" ref="contactHeroOverlay">
+          <div class="space-y-3">
+            <h1
+              id="contact-title"
+              class="home-title text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white"
+              ref="contactHeroTitle"
+            >
+              Kontak
+            </h1>
+
+            <p
+              class="home-subtitle mx-auto max-w-2xl text-lg text-white/85 sm:text-xl"
+              ref="contactHeroSubtitle"
+            >
+              Butuh bantuan cek ketersediaan obat atau konsultasi? Hubungi kami melalui WhatsApp atau isi formulir di bawah.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section class="contact-section mx-auto mt-6 w-full max-w-6xl px-4 sm:px-6 lg:px-8" aria-labelledby="contact-form-title">
+        <div class="contact-form-card space-y-6 rounded-[2rem] border border-slate-100 p-8 shadow-xl" ref="contactFormCard">
           <h2 id="contact-form-title" class="section-title text-3xl font-bold text-indigo-950">Kirim Pesan</h2>
           <form class="contact-form space-y-6" @submit.prevent="handleSubmitIntent">
-            <div class="contact-form__grid grid gap-6 md:grid-cols-2">
+            <div class="contact-form__grid grid gap-6 grid-cols-1 sm:grid-cols-3">
               <div class="contact-form__field flex flex-col gap-2">
                 <InputField
                   label="Nama"
@@ -38,7 +57,7 @@
                   required
                 />
               </div>
-              <div class="contact-form__field contact-form__field--full flex flex-col gap-2">
+              <div class="contact-form__field flex flex-col gap-2">
                 <InputField
                   label="Subjek"
                   name="subject"
@@ -47,7 +66,8 @@
                   :error="errors.subject"
                 />
               </div>
-              <div class="contact-form__field contact-form__field--full flex flex-col gap-2">
+
+              <div class="contact-form__field sm:col-span-3 flex flex-col gap-2">
                 <InputField
                   label="Pesan"
                   name="message"

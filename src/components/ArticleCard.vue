@@ -17,8 +17,8 @@
       </figure>
 
       <div class="article-card__body flex flex-1 flex-col gap-3 px-7 py-6">
-        <h3 class="article-card__title text-lg font-semibold text-slate-900 line-clamp-2">{{ title }}</h3>
-        <p class="article-card__excerpt text-sm leading-relaxed text-slate-600 line-clamp-4">{{ excerpt }}</p>
+        <h3 class="article-card__title text-lg font-semibold text-slate-900 overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">{{ title }}</h3>
+        <p class="article-card__excerpt text-sm leading-relaxed text-slate-600 overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:4]">{{ excerpt }}</p>
       </div>
 
       <footer class="article-card__footer px-7 pb-6 text-sm text-slate-500">
@@ -91,20 +91,4 @@ const linkAttrs = computed(() => {
 })
 </script>
 
-<style scoped>
-/* Simple line clamp without Tailwind plugin */
-.line-clamp-4 {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  line-clamp: 4;
-  overflow: hidden;
-}
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  line-clamp: 2;
-  overflow: hidden;
-}
-</style>
+

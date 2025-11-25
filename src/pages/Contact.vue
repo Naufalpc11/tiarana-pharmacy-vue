@@ -146,7 +146,7 @@ import InputField from '@/components/InputField.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
-const heroImage = new URL('../assets/Images/Hero-bg.jpg', import.meta.url).href
+const heroImage = new URL('../assets/Images/HeroSection/Contact.jpg', import.meta.url).href
 
 const form = reactive({
   name: '',

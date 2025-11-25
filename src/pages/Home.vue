@@ -159,10 +159,10 @@ import ArticleHighlight from '@/components/ArticleHighlight.vue';
 import FeatureHighlightCard from '@/components/FeatureHighlightCard.vue';
 import PartnerLogos from '@/components/PartnerLogos.vue';
 import ServiceCard from '@/components/ServiceCard.vue';
+import { articles as allArticles } from '@/data/articles';
 import MainLayout from '@/layouts/MainLayout.vue';
 import { computed, onMounted, ref } from 'vue';
 
-// Import local SVG icons
 import certificateIcon from '@/assets/Icon/certificate-solid-full.svg';
 import checkCircleIcon from '@/assets/Icon/circle-check-solid-full.svg';
 import clockIcon from '@/assets/Icon/clock-solid-full.svg';
@@ -188,8 +188,8 @@ const props = defineProps({
   },
 });
 
-const heroBanner = new URL('../assets/Images/Hero-bg.jpg', import.meta.url).href;
-const interiorImage = new URL('../assets/Images/Interior.jpg', import.meta.url).href;
+const heroBanner = new URL('../assets/Images/HeroSection/Interior.jpg', import.meta.url).href;
+const interiorImage = new URL('../assets/Images/Other/Interior-2.jpg', import.meta.url).href;
 
 const defaultHero = {
   title: 'TIARANA FARMA',
@@ -332,7 +332,7 @@ const featureHighlights = computed(() => {
       return {
         title: highlight.title ?? '',
         description: highlight.description ?? '',
-        icon: iconClass || (iconImageUrl ? '' : 'fas fa-circle'),
+        icon: iconClass || '',
         iconImageUrl,
       };
     });
@@ -353,7 +353,7 @@ const about = computed(() => {
 
           return {
             title: feature.title ?? '',
-            icon: iconClass || (iconImageUrl ? '' : 'fas fa-circle'),
+            icon: iconClass || '',
             iconImageUrl,
           };
         })
@@ -390,7 +390,7 @@ const services = computed(() => {
 
     return {
       title: service.title ?? '',
-      icon: iconClass || (iconImageUrl ? '' : 'fas fa-circle'),
+      icon: iconClass || '',
       iconImageUrl,
       description: service.description ?? '',
       items,
@@ -453,7 +453,21 @@ const articleExcerptFallback =
 const articleTitleFallback = 'Amoksisilin: Kapan Perlu Kapan Tidak';
 const articleDateFallback = '12/08/2025';
 
-const latestArticles = computed(() => props.articles ?? []);
+const latestArticles = computed(() => {
+  if (Array.isArray(props.articles) && props.articles.length) {
+    return props.articles
+  }
+  const sorted = [...allArticles].sort((a, b) => new Date(b.published_at) - new Date(a.published_at))
+  return sorted.map(a => ({
+    id: a.id,
+    title: a.title,
+    excerpt: a.excerpt,
+    published_at: a.published_at,
+    cover_image: a.cover_image,
+    cover_image_url: a.cover_image,
+    url: `/artikel/${a.id}`,
+  }))
+});
 const firstArticle = computed(() => latestArticles.value[0] ?? null);
 const highlightTitle = computed(
   () => firstArticle.value?.title ?? articleTitleFallback
@@ -466,12 +480,10 @@ const highlightDate = computed(
     firstArticle.value?.published_at ?? articleDateFallback
 );
 const highlightImage = computed(
-  () =>
-    firstArticle.value?.cover_image_url ??
-    articleImageFallback
+  () => firstArticle.value?.cover_image_url || firstArticle.value?.cover_image || articleImageFallback
 );
 const highlightPrimaryHref = computed(
-  () => firstArticle.value?.url ?? props.articlesIndexUrl
+  () => firstArticle.value?.url ?? (firstArticle.value?.id ? `/artikel/${firstArticle.value.id}` : props.articlesIndexUrl)
 );
 const articlesIndexHref = computed(
   () => props.articlesIndexUrl ?? '/artikel'

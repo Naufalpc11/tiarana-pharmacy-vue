@@ -14,7 +14,7 @@
           >
             <div ref="heroBackButton" class="flex flex-wrap items-center gap-4">
               <Button variant="white" size="sm" href="/artikel" icon-position="left">
-                <template #icon><i class="fa-solid fa-arrow-left" /></template>
+                <template #icon><span class="inline-block h-4 w-4" v-html="arrowLeftSvg" /></template>
                 Kembali
               </Button>
               <span class="inline-flex items-center rounded-full border border-white/30 px-3 py-1 text-xs font-medium tracking-wide text-white/80 backdrop-blur">Artikel</span>
@@ -36,7 +36,7 @@
             </div>
             <div
               v-if="bodyHtml"
-              class="article-detail-body prose prose-slate max-w-none"
+              class="prose prose-slate max-w-none prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-lg prose-h3:font-semibold prose-p:mb-4 prose-p:leading-relaxed prose-ol:mb-4 prose-ul:mb-4 prose-li:my-0 prose-strong:font-semibold"
               v-html="bodyHtml"
             ></div>
           </article>
@@ -48,7 +48,7 @@
         <p class="mt-3 text-slate-500">Maaf, artikel yang Anda cari belum tersedia. Silakan kembali ke daftar artikel untuk membaca materi lainnya.</p>
         <div class="mt-6">
           <Button variant="primary" href="/artikel" icon-position="left" size="md">
-            <template #icon><i class="fa-solid fa-arrow-left" /></template>
+            <template #icon><span class="inline-block h-4 w-4" v-html="arrowLeftSvg" /></template>
             Kembali ke Artikel
           </Button>
         </div>
@@ -59,6 +59,7 @@
 
 <script setup>
 import { initializeArticleDetailAnimations } from '@/animation/articleDetailAnimations'
+import arrowLeftSvg from '@/assets/Icon/arrow-left-solid.svg?raw'
 import Button from '@/components/Button.vue'
 import { getArticleById } from '@/data/articles'
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -134,44 +135,5 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
-.article-detail-body {
-  line-height: 1.7;
-  font-size: 1rem;
-}
-.article-detail-body p {
-  margin: 0 0 1rem;
-}
-.article-detail-body p:last-child { margin-bottom: 0; }
-.article-detail-body h3 {
-  margin: 2rem 0 0.75rem;
-  font-size: 1.25rem; /* slightly larger for section headings */
-  font-weight: 600;
-  color: #0f172a;
-  line-height: 1.3;
-}
-.article-detail-body h3:first-child { margin-top: 0; }
-.article-detail-body ul,
-.article-detail-body ol {
-  margin: 0 0 1rem 1.25rem;
-  padding: 0;
-}
-.article-detail-body li {
-  margin: 0 0 0.4rem;
-}
-.article-detail-body ol { list-style: decimal; }
-.article-detail-body ul { list-style: disc; }
-/* Bold labels at paragraph starts (e.g., "Dosis dan interval tepat:") */
-.article-detail-body p strong:first-child {
-  display: inline-block;
-  font-weight: 600;
-  color: #0f172a;
-  margin-right: 0.25rem;
-}
-/* Avoid huge gap when heading directly followed by list */
-.article-detail-body h3 + ul,
-.article-detail-body h3 + ol { margin-top: 0; }
-/* Tighten final block */
-.article-detail-body > :last-child { margin-bottom: 0; }
-</style>
+
 

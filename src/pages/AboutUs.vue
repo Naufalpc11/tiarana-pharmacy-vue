@@ -31,7 +31,7 @@
               @click="scrollTo('#lokasi')"
             >
               <template #icon>
-                <i class="fa-solid fa-location-dot" />
+                <span class="h-4 w-4" v-html="locationIcon" />
               </template>
               Lokasi
             </Button>
@@ -43,7 +43,7 @@
               @click="scrollTo('#kontak')"
             >
               <template #icon>
-                <i class="fa-solid fa-phone" />
+                <span class="h-4 w-4" v-html="phoneIcon" />
               </template>
               Hubungi Kami
             </Button>
@@ -94,7 +94,7 @@
               <HistoryStatCard
                 v-for="(stat, index) in pageData.history.stats"
                 :key="index"
-                :icon="stat.icon"
+                :icon-image-url="stat.iconImageUrl"
                 :value="stat.value"
                 :label="stat.label"
               />
@@ -148,10 +148,12 @@
                       'border-slate-200 bg-slate-50 text-slate-700': !cred.includes('Verifikasi')
                     }"
                   >
-                    <i
+                    <img
                       v-if="cred.includes('Verifikasi')"
-                      class="fa-solid fa-check text-[10px]"
-                    ></i>
+                      :src="checkIcon"
+                      alt=""
+                      class="h-2.5 w-2.5"
+                    />
                     {{ cred }}
                   </span>
                 </div>
@@ -202,7 +204,7 @@
             <div id="kontak" class="space-y-4">
               <ContactInfoCard
                 title="Alamat"
-                icon="fa-solid fa-location-dot"
+                :icon-image-url="locationIcon"
                 :lines="[pageData.location.address]"
                 :copy-text="pageData.location.address"
                 @copy="handleCopy"
@@ -210,7 +212,7 @@
 
               <ContactInfoCard
                 title="Telepon"
-                icon="fa-solid fa-phone"
+                :icon-image-url="phoneIcon"
                 :lines="[pageData.location.phone]"
                 :copy-text="pageData.location.phone"
                 @copy="handleCopy"
@@ -218,7 +220,7 @@
 
               <ContactInfoCard
                 title="Jam Operasional"
-                icon="fa-solid fa-clock"
+                :icon-image-url="clockIcon"
                 :lines="pageData.location.hours"
                 :copyable="false"
               />
@@ -249,7 +251,14 @@ import { onMounted, reactive } from "vue";
 
 import { initializeAboutUsAnimations } from "@/animation/aboutUsAnimations";
 
-import interiorImg from "@/assets/Images/Interior.jpg";
+import calendarIcon from "@/assets/Icon/calendar-solid.svg?raw";
+import checkIcon from "@/assets/Icon/circle-check-solid-full.svg"; // badge kecil tetap <img>
+import clockIcon from "@/assets/Icon/clock-solid-full.svg?raw";
+import locationIcon from "@/assets/Icon/location-dot-solid-full.svg?raw";
+import phoneIcon from "@/assets/Icon/phone-solid.svg?raw";
+import capsulesIcon from "@/assets/Icon/pills-solid-full.svg?raw";
+import usersIcon from "@/assets/Icon/user-solid.svg?raw";
+import interiorImg from "@/assets/Images/HeroSection/AboutUs.jpg";
 
 const pageData = reactive({
   vision:
@@ -275,9 +284,9 @@ const pageData = reactive({
     text:
       "Berdiri pada 2021 di Balikpapan, Tiarana Farma lahir dari misi sederhana: memudahkan akses obat yang aman dan terjangkau. Kami terus berkembang menjadi apotek modern berbasis komunitas.",
     stats: [
-      { value: "2021", label: "Mulai Beroperasi", icon: "fa-solid fa-calendar-days" },
-      { value: "5.000+", label: "Pelanggan Dilayani", icon: "fa-solid fa-users" },
-      { value: "200+", label: "Produk Tersedia", icon: "fa-solid fa-capsules" },
+      { value: "2021", label: "Mulai Beroperasi", iconImageUrl: calendarIcon },
+      { value: "5.000+", label: "Pelanggan Dilayani", iconImageUrl: usersIcon },
+      { value: "200+", label: "Produk Tersedia", iconImageUrl: capsulesIcon },
     ],
   },
   pharmacist: {

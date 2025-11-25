@@ -6,11 +6,11 @@
     tabindex="0"
   >
     <div
-      class="icon flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10"
+      class="icon flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-700"
       aria-hidden="true"
     >
-      <img v-if="iconImageUrl" :src="iconImageUrl" alt="" class="h-9 w-9 object-contain" />
-      <i v-else :class="icon" class="text-xl text-emerald-700" />
+      <span v-if="iconImageUrl" v-html="iconImageUrl" class="h-9 w-9"></span>
+      <i v-else :class="icon" class="text-xl" />
     </div>
 
     <div class="value text-2xl font-semibold text-indigo-950">{{ value }}</div>

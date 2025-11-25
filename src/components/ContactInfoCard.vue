@@ -6,10 +6,10 @@
   >
     <div
       class="icon flex h-12 w-12 shrink-0 items-center justify-center rounded-xl
-             bg-indigo-500/10 text-indigo-700"
+             bg-indigo-500/10 text-[#1a237e]"
       aria-hidden="true"
     >
-      <img v-if="iconImageUrl" :src="iconImageUrl" alt="" class="h-7 w-7 object-contain" />
+      <span v-if="iconImageUrl" v-html="iconImageUrl" class="h-7 w-7"></span>
       <i v-else :class="icon" class="text-lg" />
     </div>
 

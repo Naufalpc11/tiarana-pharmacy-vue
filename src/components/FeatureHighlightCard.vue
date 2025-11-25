@@ -38,7 +38,7 @@ const props = defineProps({
 });
 
 const fallbackIcon = computed(
-  () => props.icon || (props.iconImageUrl ? "" : "fas fa-circle")
+  () => props.icon || ''
 );
 
 const cardClass = computed(() =>

@@ -37,10 +37,11 @@
                 class="artikel-search flex w-full items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 text-sm text-slate-600 shadow-md shadow-slate-900/10 ring-1 ring-slate-200 focus-within:ring-2 focus-within:ring-indigo-500"
                 aria-label="Cari artikel"
               >
-                <i
-                  class="fa-solid fa-magnifying-glass artikel-search__icon text-slate-400"
+                <span
+                  class="artikel-search__icon inline-block h-4 w-4 text-slate-400"
+                  v-html="magnifyingGlassSvg"
                   aria-hidden="true"
-                ></i>
+                />
                 <input
                   type="search"
                   placeholder="Cari artikel..."
@@ -110,12 +111,13 @@
 
 <script setup>
 import { initializeArtikelAnimations } from '@/animation/artikelAnimations'
+import magnifyingGlassSvg from '@/assets/Icon/magnifying-glass-solid.svg?raw'
 import ArticleCard from '@/components/ArticleCard.vue'
 import { articles } from '@/data/articles'
 import MainLayout from '@/layouts/MainLayout.vue'
 import { computed, nextTick, onMounted, ref } from 'vue'
 
-const heroImage = new URL('../assets/Images/Hero-bg.jpg', import.meta.url).href
+const heroImage = new URL('../assets/Images/HeroSection/Article.jpg', import.meta.url).href
 const fallbackImage = heroImage
 
 const rawArticles = articles.map(a => ({

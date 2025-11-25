@@ -8,11 +8,11 @@
       <section class="footer-section space-y-3">
         <h3 class="text-lg font-semibold">Kontak</h3>
         <ul class="space-y-2 text-sm text-slate-200">
-          <li class="flex items-center gap-2"><i class="fas fa-phone w-4 text-indigo-300"></i> {{ footer.contact.phone }}</li>
-          <li class="flex items-center gap-2"><i class="fas fa-envelope w-4 text-indigo-300"></i> {{ footer.contact.email }}</li>
-          <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt w-4 text-indigo-300"></i> {{ footer.contact.address }}</li>
+          <li class="flex items-center gap-2"><span class="h-4 w-4 text-white" v-html="phoneIcon" aria-hidden="true" /> {{ footer.contact.phone }}</li>
+          <li class="flex items-center gap-2"><span class="h-4 w-4 text-white" v-html="envelopeIcon" aria-hidden="true" /> {{ footer.contact.email }}</li>
+          <li class="flex items-center gap-2"><span class="h-4 w-4 text-white" v-html="locationIcon" aria-hidden="true" /> {{ footer.contact.address }}</li>
           <li class="flex items-center gap-2">
-            <i class="fas fa-bug w-4 text-indigo-300"></i>
+            <span class="h-4 w-4 text-white" v-html="bugIcon" aria-hidden="true" />
             <RouterLink to="/report-bug" class="font-semibold text-indigo-200 transition hover:text-white">Laporkan Bug</RouterLink>
           </li>
         </ul>
@@ -49,8 +49,11 @@
 </template>
 
 <script setup>
+import bugIcon from '@/assets/Icon/bug-solid.svg?raw'
+import envelopeIcon from '@/assets/Icon/envelope-solid.svg?raw'
+import locationIcon from '@/assets/Icon/location-dot-solid-full.svg?raw'
+import phoneIcon from '@/assets/Icon/phone-solid.svg?raw'
 import { RouterLink } from 'vue-router'
-// Gunakan kembali class Font Awesome seperti versi sebelumnya
 
 const currentYear = new Date().getFullYear()
 

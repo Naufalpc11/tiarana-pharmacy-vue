@@ -35,14 +35,14 @@
                 aria-label="Artikel sebelumnya"
                 @click="goPrev"
               >
-                <i class="fa-solid fa-arrow-left"></i>
+                <span class="inline-block h-4 w-4" v-html="arrowLeftSvg" />
               </CircleButton>
               <CircleButton
                 :disabled="isNextDisabled"
                 aria-label="Artikel selanjutnya"
                 @click="goNext"
               >
-                <i class="fa-solid fa-arrow-right"></i>
+                <span class="inline-block h-4 w-4" v-html="arrowRightSvg" />
               </CircleButton>
             </div>
           </div>
@@ -62,7 +62,7 @@
         <Button :href="secondaryHref" size="lg" icon-position="right">
           Selengkapnya
           <template #icon>
-            <i class="fa-solid fa-arrow-right"></i>
+            <span class="inline-block h-4 w-4" v-html="arrowRightSvg" />
           </template>
         </Button>
       </aside>
@@ -71,6 +71,8 @@
 </template>
 
 <script setup>
+import arrowLeftSvg from '@/assets/Icon/arrow-left-solid.svg?raw'
+import arrowRightSvg from '@/assets/Icon/arrow-right-solid.svg?raw'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import Button from './Button.vue'
 import CircleButton from './CircleButton.vue'
@@ -181,7 +183,13 @@ const backgroundKey = computed(() => `bg-${articleKey.value}`)
 
 const displayTitle = computed(() => currentArticle.value?.title ?? props.title)
 const displayExcerpt = computed(() => currentArticle.value?.excerpt ?? props.excerpt)
-const displayDate = computed(() => currentArticle.value?.published_at ?? props.date)
+const displayDate = computed(() => {
+  const raw = currentArticle.value?.published_at ?? props.date
+  if (!raw) return ''
+  const d = new Date(raw)
+  if (Number.isNaN(d.getTime())) return raw
+  return new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(d)
+})
 
 const primaryArticleHref = computed(() => {
   if (hasArticles.value) {
@@ -219,7 +227,7 @@ const goNext = () => {
 }
 
 const bgStyle = computed(() => {
-  const coverImage = currentArticle.value?.cover_image_url ?? props.image
+  const coverImage = currentArticle.value?.cover_image || currentArticle.value?.cover_image_url || props.image
 
   if (coverImage) {
     return {

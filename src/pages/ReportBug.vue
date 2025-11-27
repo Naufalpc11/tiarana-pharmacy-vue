@@ -1,10 +1,10 @@
 <template>
   <MainLayout>
     <div class="bug-report-page flex flex-col gap-10">
-      <section class="bug-report-hero relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-rose-500/80 to-indigo-600/80 px-6 py-14 text-white shadow-2xl">
-        <div class="bug-report-hero__content space-y-3">
-          <h1 class="text-4xl font-extrabold">Laporkan Bug</h1>
-          <p class="max-w-3xl text-lg text-white/80">
+      <section class="bug-report-hero relative overflow-hidden rounded-[2rem] min-h-[250px] bg-gradient-to-br from-[#0d19a3] to-[#2f3df5] text-white shadow-lg shadow-indigo-500/25">
+        <div class="bug-report-hero__content flex flex-col justify-center space-y-4 px-6 py-12 md:px-10 md:py-16">
+          <h1 class="text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">Laporkan Bug</h1>
+          <p class="max-w-3xl text-base leading-relaxed text-white/90 sm:text-lg">
             Temukan kendala saat menggunakan aplikasi? Laporkan detailnya agar tim kami dapat segera memperbaikinya.
           </p>
         </div>
@@ -154,11 +154,11 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import Button from '@/components/Button.vue'
 import FeedbackDialog from '@/components/FeedbackDialog.vue'
 import InputField from '@/components/InputField.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
+import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
 const form = reactive({
   subject: '',
@@ -250,6 +250,21 @@ const confirmSubmission = async () => {
 
   try {
     await simulateSubmission()
+    
+    try {
+      const reports = JSON.parse(localStorage.getItem('tiarana_admin_bug_reports') || '[]')
+      reports.unshift({
+        id: Date.now().toString(),
+        subject: form.subject,
+        email: form.email || null,
+        description: form.description,
+        screenshot: screenshotPreview.value || null,
+        timestamp: new Date().toISOString(),
+        status: 'new'
+      })
+      localStorage.setItem('tiarana_admin_bug_reports', JSON.stringify(reports))
+    } catch (e) {}
+    
     form.subject = ''
     form.email = ''
     form.description = ''

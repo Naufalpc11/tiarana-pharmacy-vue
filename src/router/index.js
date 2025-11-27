@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import AboutUs from "@/pages/AboutUs.vue";
 import AdminArticles from "@/pages/Admin/Articles.vue";
+import AdminBugReports from "@/pages/Admin/BugReports.vue";
+import AdminContacts from "@/pages/Admin/Contacts.vue";
 import AdminIndex from "@/pages/Admin/Index.vue";
 import AdminLogin from "@/pages/Admin/Login.vue";
 import ArticleDetail from "@/pages/ArticleDetail.vue";
@@ -26,7 +28,7 @@ const routes = [
 
   { path: "/report-bug", name: "report-bug", component: ReportBug },
 
-  // Admin routes
+  // Admin
   {
     path: "/admin/login",
     name: "admin-login",
@@ -47,6 +49,18 @@ const routes = [
         path: "articles",
         name: "admin-articles",
         component: AdminArticles,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "contacts",
+        name: "admin-contacts",
+        component: AdminContacts,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "bug-reports",
+        name: "admin-bug-reports",
+        component: AdminBugReports,
         meta: { requiresAuth: true },
       },
     ],

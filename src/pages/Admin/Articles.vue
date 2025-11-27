@@ -1,18 +1,10 @@
 <template>
   <div class="flex min-h-screen bg-gray-50">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-gray-200 flex-shrink-0">
-      <nav class="p-4 space-y-1">
-        <div class="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Konten</div>
-        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-lg">
-          <span>Artikel</span>
-        </a>
-      </nav>
-    </aside>
+    <AdminSidebar />
 
-    <!-- Main Content -->
+    
     <div class="flex-1 flex flex-col">
-      <!-- Content Header -->
+      
       <div class="bg-white border-b border-gray-200 px-6 py-4">
         <div class="flex items-center justify-between">
           <div>
@@ -29,10 +21,10 @@
         </div>
       </div>
 
-      <!-- Table Container -->
+      
       <div class="flex-1 p-6">
         <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-          <!-- Table Header with Search -->
+          
           <div class="p-4 border-b border-gray-200">
             <div class="flex items-center justify-between">
               <input
@@ -44,7 +36,7 @@
             </div>
           </div>
 
-          <!-- Table -->
+          
           <div class="overflow-x-auto">
             <table class="w-full">
               <thead class="bg-gray-50 border-b border-gray-200">
@@ -73,7 +65,7 @@
             </table>
           </div>
 
-          <!-- Table Footer -->
+          
           <div class="px-6 py-3 border-t border-gray-200 text-sm text-gray-600">
             Showing {{ filteredArticles.length }} of {{ articles.length }} results
           </div>
@@ -81,10 +73,10 @@
       </div>
     </div>
 
-    <!-- Create/Edit Modal -->
+    
     <div v-if="showFormModal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/50 p-4 overflow-y-auto" @click.self="closeFormModal">
       <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl my-8">
-        <!-- Modal Header -->
+        
         <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
           <div>
             <div class="flex items-center gap-2 text-sm text-gray-500 mb-1">
@@ -99,7 +91,7 @@
           </button>
         </div>
 
-        <!-- Modal Body -->
+        
         <form @submit.prevent="save" class="p-6 space-y-6">
           <div class="bg-gray-50 rounded-lg p-4">
             <h3 class="text-sm font-semibold text-gray-700 mb-4">Informasi Utama</h3>
@@ -173,7 +165,7 @@
             />
           </div>
 
-          <!-- Modal Footer -->
+          
           <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
             <Button type="button" @click="closeFormModal" variant="primary" size="md">
               Cancel
@@ -186,7 +178,7 @@
       </div>
     </div>
 
-    <!-- Delete Confirmation Dialog -->
+    
     <div v-if="showDeleteDialog" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4" @click.self="cancelDelete">
       <FeedbackDialog
         variant="confirm"
@@ -202,6 +194,7 @@
 </template>
 
 <script>
+import AdminSidebar from '@/components/AdminSidebar.vue'
 import Button from '@/components/Button.vue'
 import DangerButton from '@/components/DangerButton.vue'
 import FeedbackDialog from '@/components/FeedbackDialog.vue'
@@ -229,7 +222,7 @@ function persistArticles(list) {
 
 export default {
   name: 'AdminArticles',
-  components: { InputField, Button, DangerButton, FeedbackDialog },
+  components: { AdminSidebar, InputField, Button, DangerButton, FeedbackDialog },
   data() {
     return {
       articles: loadArticles(),

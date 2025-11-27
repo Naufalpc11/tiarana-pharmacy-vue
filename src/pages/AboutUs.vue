@@ -1,13 +1,13 @@
 <template>
   <MainLayout>
     <main class="bg-slate-50 text-slate-900">
-      <!-- HERO -->
+      
       <header
         class="about-header hero-bg-image relative min-h-[800px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
               overflow-hidden bg-cover bg-center"
         :style="{ backgroundImage: `url(${pageData.images.hero})` }"
       >
-        <!-- overlay hook for GSAP -->
+        
         <div class="about-header-overlay absolute inset-0 bg-slate-900/70"></div>
 
         <div
@@ -22,7 +22,7 @@
             Apotek Tiarana Farma adalah apotek terpercaya yang menyediakan layanan kesehatan berkualitas dengan dukungan tim profesional.
           </p>
 
-          <!-- tombolnya di sini -->
+          
           <div class="mt-3 flex flex-wrap justify-center gap-4">
             <Button
               variant="primary"
@@ -40,7 +40,7 @@
               variant="white"
               size="md"
               icon-position="left"
-              @click="scrollTo('#kontak')"
+              @click="$router.push({ name: 'contact' })"
             >
               <template #icon>
                 <span class="h-4 w-4" v-html="phoneIcon" />
@@ -52,7 +52,7 @@
       </header>
 
 
-      <!-- VISI -->
+      
       <section class="vision-section bg-white py-12 md:py-16">
         <div class="mx-auto max-w-3xl px-4 text-center">
           <h2 class="text-lg font-semibold text-blue-700">Visi</h2>
@@ -62,7 +62,7 @@
         </div>
       </section>
 
-      <!-- MISI -->
+      
       <section class="values-section bg-slate-50 py-10 md:py-14">
         <div class="mx-auto max-w-6xl px-4">
           <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">
@@ -80,7 +80,7 @@
         </div>
       </section>
 
-      <!-- SEJARAH -->
+      
       <section class="history-section bg-white py-12 md:py-16">
         <div class="mx-auto grid max-w-6xl gap-10 px-4 lg:grid-cols-2 lg:items-start">
           <div class="history-content">
@@ -89,7 +89,7 @@
               {{ pageData.history.text }}
             </p>
 
-            <!-- stats -->
+            
             <div class="history-stats mt-6 grid gap-4 text-sm sm:grid-cols-3">
               <HistoryStatCard
                 v-for="(stat, index) in pageData.history.stats"
@@ -111,7 +111,7 @@
         </div>
       </section>
 
-      <!-- APOTEKER -->
+      
       <section class="team-section bg-slate-50 py-12 md:py-16">
         <div class="mx-auto max-w-6xl px-4">
           <h2 class="text-xl font-bold text-indigo-950">Apoteker Kami</h2>
@@ -121,14 +121,14 @@
 
           <div class="pharmacist-card mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg md:p-8">
             <div class="flex flex-col gap-6 md:flex-row md:items-start">
-              <!-- Foto -->
+              
               <img
                 :src="pageData.images.pharmacist"
                 alt="apoteker"
                 class="h-24 w-24 shrink-0 rounded-full object-cover ring-4 ring-blue-100 md:h-28 md:w-28"
               />
 
-              <!-- Info -->
+              
               <div class="flex-1">
                 <h3 class="text-lg font-semibold text-slate-900">
                   {{ pageData.pharmacist.name }}
@@ -137,7 +137,7 @@
                   {{ pageData.pharmacist.title }}
                 </p>
 
-                <!-- Badge -->
+                
                 <div class="mt-3 flex flex-wrap gap-2 text-xs">
                   <span
                     v-for="(cred, index) in pageData.pharmacist.credentials"
@@ -158,7 +158,7 @@
                   </span>
                 </div>
 
-                <!-- STRA + SIPA (sejajar) -->
+                
                 <div class="mt-4 grid gap-3 md:grid-cols-2">
                   <div
                     v-for="(detail, index) in pageData.pharmacist.details.slice(0, 2)"
@@ -174,7 +174,7 @@
                   </div>
                 </div>
 
-                <!-- Jadwal full width -->
+                
                 <div
                   v-if="pageData.pharmacist.details[2]"
                   class="mt-3 rounded-xl border border-slate-200 p-3 text-sm"
@@ -192,7 +192,7 @@
         </div>
       </section>
 
-      <!-- LOKASI -->
+      
       <section id="lokasi" class="location-section bg-slate-50 py-12 md:py-16">
         <div class="mx-auto max-w-6xl px-4">
           <h2 class="text-center text-xl font-bold text-indigo-950">
@@ -200,7 +200,7 @@
           </h2>
 
           <div class="mt-8 grid gap-6 lg:grid-cols-2 lg:items-start">
-            <!-- kiri -->
+            
             <div id="kontak" class="space-y-4">
               <ContactInfoCard
                 title="Alamat"
@@ -226,7 +226,7 @@
               />
             </div>
 
-            <!-- kanan -->
+            
             <div class="map-container overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/5 ring-1 ring-slate-200">
               <img
                 :src="pageData.images.map"

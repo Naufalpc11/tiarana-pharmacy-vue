@@ -17,7 +17,7 @@
       {{ title }}
     </h3>
 
-    <!-- desc hanya tampil kalau tidak compact -->
+    
     <p v-if="!compact" class="text-base text-slate-600">
       {{ description }}
     </p>
@@ -33,7 +33,6 @@ const props = defineProps({
   title: { type: String, required: true },
   description: { type: String, default: "" },
 
-  // mode compact untuk tampilan kecil (gambar 2)
   compact: { type: Boolean, default: false },
 });
 
@@ -51,10 +50,8 @@ const iconWrapperClass = computed(() => {
   if (props.compact) {
     return "flex items-center justify-center text-indigo-900";
   }
-  // default besar
   let cls =
     "flex h-20 w-20 items-center justify-center rounded-full bg-indigo-100 text-indigo-900";
-  // kalau pakai image icon, hapus background dan border
   if (props.iconImageUrl) {
     cls = "flex h-20 w-20 items-center justify-center rounded-full bg-transparent text-indigo-900";
   }

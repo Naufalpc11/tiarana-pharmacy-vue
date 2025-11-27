@@ -2,7 +2,7 @@
   <MainLayout>
     <div class="article-detail-page flex flex-col gap-10">
       <template v-if="article">
-        <!-- Full-width hero -->
+        
         <header
           class="article-hero relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden bg-cover bg-center"
           :style="heroStyle"
@@ -28,7 +28,7 @@
           </div>
         </header>
 
-        <!-- Content -->
+        
         <section class="mx-auto w-full max-w-5xl px-6 sm:px-8">
           <article ref="contentCard" class="space-y-10 rounded-3xl bg-white p-8 shadow-2xl shadow-slate-900/10">
             <div v-if="article.excerpt" class="rounded-2xl bg-indigo-50/70 p-6">

@@ -33,7 +33,7 @@
         <div class="contact-form-card space-y-6 rounded-[2rem] border border-slate-100 p-8 shadow-xl" ref="contactFormCard">
           <h2 id="contact-form-title" class="section-title text-3xl font-bold text-indigo-950">Kirim Pesan</h2>
           <form class="contact-form space-y-6" @submit.prevent="handleSubmitIntent">
-            <div class="contact-form__grid grid gap-6 grid-cols-1 sm:grid-cols-3">
+            <div class="contact-form__grid grid gap-6 grid-cols-1 sm:grid-cols-2">
               <div class="contact-form__field flex flex-col gap-2">
                 <InputField
                   label="Nama"
@@ -59,6 +59,17 @@
               </div>
               <div class="contact-form__field flex flex-col gap-2">
                 <InputField
+                  label="Telepon"
+                  name="phone"
+                  type="tel"
+                  autocomplete="tel"
+                  placeholder="08xx xxxx xxxx"
+                  v-model="form.phone"
+                  :error="errors.phone"
+                />
+              </div>
+              <div class="contact-form__field flex flex-col gap-2">
+                <InputField
                   label="Subjek"
                   name="subject"
                   placeholder="Tuliskan subjek pesan"
@@ -67,7 +78,7 @@
                 />
               </div>
 
-              <div class="contact-form__field sm:col-span-3 flex flex-col gap-2">
+              <div class="contact-form__field sm:col-span-2 flex flex-col gap-2">
                 <InputField
                   label="Pesan"
                   name="message"
@@ -151,6 +162,7 @@ const heroImage = new URL('../assets/Images/HeroSection/Contact.jpg', import.met
 const form = reactive({
   name: '',
   email: '',
+  phone: '',
   subject: '',
   message: '',
 })
@@ -158,6 +170,7 @@ const form = reactive({
 const errors = reactive({
   name: '',
   email: '',
+  phone: '',
   subject: '',
   message: '',
 })
@@ -184,6 +197,7 @@ const isDialogVisible = computed(
 const clearErrors = () => {
   errors.name = ''
   errors.email = ''
+  errors.phone = ''
   errors.subject = ''
   errors.message = ''
 }
@@ -192,11 +206,13 @@ const validateForm = () => {
   let hasError = false
   const trimmedName = form.name.trim()
   const trimmedEmail = form.email.trim()
+  const trimmedPhone = form.phone.trim()
   const trimmedSubject = form.subject.trim()
   const trimmedMessage = form.message.trim()
 
   form.name = trimmedName
   form.email = trimmedEmail
+  form.phone = trimmedPhone
   form.subject = trimmedSubject
   form.message = trimmedMessage
 
@@ -247,8 +263,24 @@ const confirmSubmission = async () => {
 
   try {
     await simulateSubmission()
+    
+    try {
+      const contacts = JSON.parse(localStorage.getItem('tiarana_admin_contacts') || '[]')
+      contacts.unshift({
+        id: Date.now().toString(),
+        name: form.name,
+        email: form.email,
+        phone: form.phone || '-',
+        message: `${form.subject ? `[${form.subject}] ` : ''}${form.message}`,
+        timestamp: new Date().toISOString(),
+        read: false
+      })
+      localStorage.setItem('tiarana_admin_contacts', JSON.stringify(contacts))
+    } catch (e) {}
+    
     form.name = ''
     form.email = ''
+    form.phone = ''
     form.subject = ''
     form.message = ''
     clearErrors()

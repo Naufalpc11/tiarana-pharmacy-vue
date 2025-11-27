@@ -5,7 +5,7 @@
   >
     <nav class="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
 
-      <!-- LOGO: cuma gambar, ukuran proporsional -->
+      
       <RouterLink
         to="/"
         class="logo-link flex items-center"
@@ -41,7 +41,7 @@
         ></span>
       </button>
 
-      <!-- NAV LINKS -->
+      
       <div
         class="nav-links absolute left-4 right-4 top-full mt-3 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white/95 p-4
                opacity-0 shadow-2xl shadow-slate-900/10 transition duration-200

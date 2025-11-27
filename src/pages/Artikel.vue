@@ -51,23 +51,13 @@
                 />
               </label>
 
-              <div
-                class="artikel-sort flex shrink-0 items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-xs font-medium text-slate-700 shadow-sm shadow-slate-900/5 ring-1 ring-slate-200"
-              >
-                <span class="artikel-sort__label hidden sm:inline">Urutkan:</span>
-                <select
-                  id="artikel-sort-select"
-                  class="artikel-sort__select rounded-full border-none bg-transparent text-xs font-medium text-slate-900 focus:outline-none"
+              <div class="artikel-sort flex shrink-0">
+                <Dropdown
                   v-model="sortOption"
-                >
-                  <option
-                    v-for="option in sortOptions"
-                    :key="option.value"
-                    :value="option.value"
-                  >
-                    {{ option.label }}
-                  </option>
-                </select>
+                  :options="sortOptions"
+                  size="sm"
+                  variant="default"
+                />
               </div>
             </div>
           </div>
@@ -113,6 +103,7 @@
 import { initializeArtikelAnimations } from '@/animation/artikelAnimations'
 import magnifyingGlassSvg from '@/assets/Icon/magnifying-glass-solid.svg?raw'
 import ArticleCard from '@/components/ArticleCard.vue'
+import Dropdown from '@/components/Dropdown.vue'
 import { articles } from '@/data/articles'
 import MainLayout from '@/layouts/MainLayout.vue'
 import { computed, nextTick, onMounted, ref } from 'vue'

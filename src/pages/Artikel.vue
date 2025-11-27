@@ -106,22 +106,50 @@ import ArticleCard from '@/components/ArticleCard.vue'
 import Dropdown from '@/components/Dropdown.vue'
 import { articles } from '@/data/articles'
 import MainLayout from '@/layouts/MainLayout.vue'
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 
 const heroImage = new URL('../assets/Images/HeroSection/Article.jpg', import.meta.url).href
 const fallbackImage = heroImage
 
-const rawArticles = articles.map(a => ({
-  id: a.id,
-  title: a.title,
-  excerpt: a.excerpt,
-  date: new Date(a.published_at).toLocaleDateString('id-ID'),
-  published_at: a.published_at,
-  cover_image: a.cover_image,
-}))
+const rawArticles = ref([])
+
+const loadArticles = () => {
+  try {
+    const adminArticles = localStorage.getItem('tiarana_admin_articles')
+    const parsedAdmin = adminArticles ? JSON.parse(adminArticles) : []
+
+    const allArticles = [...parsedAdmin.map(a => ({
+      id: a.slug || a.id,
+      title: a.title,
+      excerpt: a.content || a.excerpt || '',
+      published_at: a.date || a.published_at,
+      cover_image: a.image || a.cover_image,
+    })), ...articles]
+    
+    rawArticles.value = allArticles.map(a => ({
+      id: a.id,
+      title: a.title,
+      excerpt: a.excerpt,
+      date: new Date(a.published_at).toLocaleDateString('id-ID'),
+      published_at: a.published_at,
+      cover_image: a.cover_image,
+    }))
+  } catch (e) {
+    console.error('Error loading articles:', e)
+    // Fallback to static articles
+    rawArticles.value = articles.map(a => ({
+      id: a.id,
+      title: a.title,
+      excerpt: a.excerpt,
+      date: new Date(a.published_at).toLocaleDateString('id-ID'),
+      published_at: a.published_at,
+      cover_image: a.cover_image,
+    }))
+  }
+}
 
 const baseArticles = computed(() =>
-  rawArticles.map((article) => ({
+  rawArticles.value.map((article) => ({
     ...article,
     image: article.cover_image || fallbackImage,
     imageAlt: article.title,
@@ -174,7 +202,13 @@ const artikelHeroSubtitle = ref(null)
 const artikelSearchBar = ref(null)
 const artikelGrid = ref(null)
 
+const handleArticlesUpdate = () => {
+  loadArticles()
+}
+
 onMounted(async () => {
+  loadArticles()
+  
   initializeArtikelAnimations({
     heroOverlay: artikelHeroOverlay.value,
     heroTitle: artikelHeroTitle.value,
@@ -187,5 +221,10 @@ onMounted(async () => {
   setTimeout(() => {
     cardsVisible.value = true
   }, 80)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('articles-updated', handleArticlesUpdate)
+  window.removeEventListener('storage', handleArticlesUpdate)
 })
 </script>

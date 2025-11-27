@@ -1,5 +1,5 @@
-// Simple static articles dataset
-export const articles = [
+
+const staticArticles = [
   {
     id: 1,
     title: 'Amoksisilin: Kapan Perlu, Kapan Tidak',
@@ -48,7 +48,7 @@ export const articles = [
       <h3>Prinsip Utama Swamedikasi Aman</h3>
       <ol>
         <li><strong>Identifikasi keluhan dengan jelas:</strong> Pastikan keluhan memang termasuk kategori ringan (misal demam ringan, sakit kepala tegang, batuk pilek biasa). Bila terdapat tanda bahaya seperti sesak napas, nyeri dada, demam tinggi &gt; 3 hari, atau perdarahan, segera konsultasi tenaga kesehatan.</li>
-        <li><strong>Pilih obat yang sesuai:</strong> Baca etiket dan brosur obat. Cocokkan indikasi dengan keluhan. Hindari menggunakan kombinasi multi-gejala bila tidak diperlukan.</li>
+        <li><strong>Pilih obat yang sesuai:</strong> Baca etikel dan brosur obat. Cocokkan indikasi dengan keluhan. Hindari menggunakan kombinasi multi-gejala bila tidak diperlukan.</li>
         <li><strong>Perhatikan kontraindikasi:</strong> Cek apakah Anda memiliki alergi, gangguan ginjal/hati, atau sedang hamil/menyusui. Jika ragu—tanya apoteker.</li>
         <li><strong>Dosis dan interval tepat:</strong> Gunakan alat takar asli (sendok takar, pipet) untuk obat cair. Jangan menebak-nebak dosis anak.</li>
         <li><strong>Evaluasi respon:</strong> Jika keluhan tidak membaik dalam 3 hari atau malah memburuk, hentikan swamedikasi dan konsultasikan ke fasilitas kesehatan.</li>
@@ -121,6 +121,28 @@ export const articles = [
     `,
   },
 ];
+
+function loadAdminArticles() {
+  try {
+    const raw = localStorage.getItem('tiarana_admin_articles')
+    if (raw) {
+      const adminArticles = JSON.parse(raw)
+      return adminArticles.map(a => ({
+        id: a.slug || a.id,
+        title: a.title,
+        excerpt: a.content || a.excerpt || '',
+        published_at: a.date || a.published_at,
+        cover_image: a.image || a.cover_image,
+        body: a.body || ''
+      }))
+    }
+  } catch (e) {
+    console.error('Error loading admin articles:', e)
+  }
+  return []
+}
+
+export const articles = [...loadAdminArticles(), ...staticArticles]
 
 export function getArticleById(id) {
   return articles.find(a => String(a.id) === String(id)) || null;

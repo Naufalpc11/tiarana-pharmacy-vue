@@ -199,25 +199,20 @@ import Button from '@/components/Button.vue'
 import DangerButton from '@/components/DangerButton.vue'
 import FeedbackDialog from '@/components/FeedbackDialog.vue'
 import InputField from '@/components/InputField.vue'
-import { articles as baseArticles } from '@/data/articles.js'
 
 function loadArticles() {
   try {
     const raw = localStorage.getItem('tiarana_admin_articles')
     if (raw) return JSON.parse(raw)
   } catch (e) {}
-  // map base articles to editable structure
-  return baseArticles.map((a, i) => ({
-    id: a.slug || String(i+1),
-    title: a.title || a.judul || `Artikel ${i+1}`,
-    date: a.date || a.tanggal || new Date().toISOString().slice(0,10),
-    content: a.content || a.deskripsi || '',
-    image: a.image || a.thumbnail || null
-  }))
+  return []
 }
 
 function persistArticles(list) {
-  try { localStorage.setItem('tiarana_admin_articles', JSON.stringify(list)) } catch (e) {}
+  try { 
+    localStorage.setItem('tiarana_admin_articles', JSON.stringify(list))
+    window.dispatchEvent(new Event('articles-updated'))
+  } catch (e) {}
 }
 
 export default {
@@ -306,13 +301,33 @@ export default {
       if (this.editingIndex !== null) {
         this.articles.splice(this.editingIndex, 1, { 
           ...this.articles[this.editingIndex], 
-          ...this.form, 
+          id: slug,
           slug,
+          title: this.form.title,
+          date: this.form.date,
+          published_at: this.form.date,
+          content: this.form.content,
+          excerpt: this.form.content,
+          body: this.form.body,
+          image: this.form.image,
+          cover_image: this.form.image,
           updatedAt: now
         })
       } else {
-        const id = this.form.id || Math.random().toString(36).slice(2,9)
-        this.articles.unshift({ id, ...this.form, slug, updatedAt: now })
+        const id = slug || Math.random().toString(36).slice(2,9)
+        this.articles.unshift({ 
+          id, 
+          slug,
+          title: this.form.title,
+          date: this.form.date,
+          published_at: this.form.date,
+          content: this.form.content,
+          excerpt: this.form.content,
+          body: this.form.body,
+          image: this.form.image,
+          cover_image: this.form.image,
+          updatedAt: now
+        })
       }
       persistArticles(this.articles)
       this.closeFormModal()

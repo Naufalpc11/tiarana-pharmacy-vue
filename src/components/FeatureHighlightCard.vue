@@ -50,12 +50,7 @@ const iconWrapperClass = computed(() => {
   if (props.compact) {
     return "flex items-center justify-center text-indigo-900";
   }
-  let cls =
-    "flex h-20 w-20 items-center justify-center rounded-full bg-indigo-100 text-indigo-900";
-  if (props.iconImageUrl) {
-    cls = "flex h-20 w-20 items-center justify-center rounded-full bg-transparent text-indigo-900";
-  }
-  return cls;
+  return "flex h-20 w-20 items-center justify-center rounded-full bg-indigo-100 text-indigo-900";
 });
 
 const imgClass = computed(() =>
@@ -68,7 +63,7 @@ const iconFontClass = computed(() =>
 
 const titleClass = computed(() =>
   props.compact
-    ? "text-sm font-semibold text-slate-900"
-    : "text-xl font-semibold text-slate-900"
+    ? "text-sm font-semibold text-indigo-900"
+    : "text-xl font-semibold text-indigo-900"
 );
 </script>

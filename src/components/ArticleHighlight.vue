@@ -211,8 +211,8 @@ const primaryArticleHref = computed(() => {
 })
 
 const showNavControls = computed(() => availableArticles.value.length > 1)
-const isPrevDisabled = computed(() => !showNavControls.value)
-const isNextDisabled = computed(() => !showNavControls.value)
+const isPrevDisabled = computed(() => !showNavControls.value || availableArticles.value.length <= 1)
+const isNextDisabled = computed(() => !showNavControls.value || availableArticles.value.length <= 1)
 
 const goPrev = () => {
   if (!showNavControls.value) return

@@ -5,7 +5,7 @@ const staticArticles = [
     title: 'Amoksisilin: Kapan Perlu, Kapan Tidak',
     excerpt: 'Antibiotik bukan untuk semua batuk pilek. Kenali indikasi, efek samping, dan mengapa harus dihabiskan sesuai resep.',
     published_at: '2025-08-12',
-    cover_image: new URL('../assets/Images/Interior.jpg', import.meta.url).href,
+    cover_image: new URL('../assets/Images/HeroSection/Interior.jpg', import.meta.url).href,
     body: `
       <p>Amoksisilin adalah antibiotik golongan penisilin yang efektif melawan banyak infeksi bakteri. Tapi—dan ini penting—antibiotik tidak bekerja untuk penyakit yang disebabkan virus seperti flu, pilek, atau sebagian besar sakit tenggorokan. Menggunakan antibiotik saat tidak perlu tidak akan mempercepat sembuh dan justru bisa menimbulkan efek samping serta mempercepat terjadinya resistensi antibiotik.</p>
       <h3>Mengapa bijak memakai antibiotik itu penting?</h3>
@@ -42,7 +42,7 @@ const staticArticles = [
     title: 'Panduan Swamedikasi yang Aman',
     excerpt: '5 langkah sederhana agar penggunaan obat bebas tetap aman: baca etiket, dosis tepat, dan konsultasi bila gejala tak membaik.',
     published_at: '2025-08-11',
-    cover_image: new URL('../assets/Images/Interior.jpg', import.meta.url).href,
+    cover_image: new URL('../assets/Images/HeroSection/Interior.jpg', import.meta.url).href,
     body: `
       <p>Swamedikasi adalah penggunaan obat oleh masyarakat untuk keluhan kesehatan ringan tanpa resep dokter, misalnya untuk demam, batuk, nyeri otot, atau gangguan pencernaan ringan. Dilakukan dengan benar, swamedikasi membantu efisiensi waktu dan biaya. Namun jika sembarangan, risiko penyalahgunaan, interaksi obat, dan keterlambatan diagnosis penyakit serius dapat terjadi.</p>
       <h3>Prinsip Utama Swamedikasi Aman</h3>
@@ -88,7 +88,7 @@ const staticArticles = [
     title: 'Cara Menyimpan Obat yang Benar di Iklim Tropis',
     excerpt: 'Panas dan lembap bisa merusak obat. Simpan pada suhu yang dianjurkan, hindari kamar mandi/dapur, dan gunakan kotak obat tertutup.',
     published_at: '2025-08-11',
-    cover_image: new URL('../assets/Images/Interior.jpg', import.meta.url).href,
+    cover_image: new URL('../assets/Images/HeroSection/Interior.jpg', import.meta.url).href,
     body: `
       <p>Iklim tropis Indonesia dengan suhu tinggi dan kelembapan dapat mempercepat kerusakan obat: penurunan potensi, perubahan warna, bau, hingga kontaminasi mikroba. Penyimpanan yang benar membantu menjaga kemanjuran dan keamanan obat sampai tanggal kedaluwarsa.</p>
       <h3>Prinsip Umum Penyimpanan Obat</h3>

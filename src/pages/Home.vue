@@ -60,7 +60,7 @@
         <div class="about-content grid gap-8 lg:grid-cols-2">
 
           <div class="about-text space-y-5 text-slate-600" ref="aboutText">
-            <h2 class="section-title text-3xl font-bold text-indigo-950">
+            <h2 class="section-title text-3xl font-bold text-indigo-900">
               {{ about.title }}
             </h2>
 
@@ -115,7 +115,7 @@
         ref="servicesSection"
       >
         <h2
-          class="section-title text-center text-3xl font-bold text-indigo-950"
+          class="section-title text-center text-3xl font-bold text-indigo-900"
           ref="servicesTitle"
         >
           Layanan Kami
@@ -159,9 +159,9 @@ import ArticleHighlight from '@/components/ArticleHighlight.vue';
 import FeatureHighlightCard from '@/components/FeatureHighlightCard.vue';
 import PartnerLogos from '@/components/PartnerLogos.vue';
 import ServiceCard from '@/components/ServiceCard.vue';
-import { articles as allArticles } from '@/data/articles';
+import { articles as staticArticles } from '@/data/articles';
 import MainLayout from '@/layouts/MainLayout.vue';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
 import certificateIcon from '@/assets/Icon/certificate-solid-full.svg';
 import checkCircleIcon from '@/assets/Icon/circle-check-solid-full.svg';
@@ -453,19 +453,46 @@ const articleExcerptFallback =
 const articleTitleFallback = 'Amoksisilin: Kapan Perlu Kapan Tidak';
 const articleDateFallback = '12/08/2025';
 
+const allArticles = ref([]);
+
+const loadArticles = () => {
+  try {
+    const adminArticles = localStorage.getItem('tiarana_admin_articles')
+    const parsedAdmin = adminArticles ? JSON.parse(adminArticles) : []
+    
+    // Transform admin articles
+    const transformedAdmin = parsedAdmin.map(a => ({
+      id: a.slug || a.id,
+      title: a.title,
+      excerpt: a.content || a.excerpt || '',
+      published_at: a.date || a.published_at,
+      cover_image: a.image || a.cover_image,
+    }))
+    
+    // Combine and sort by date
+    const combined = [...transformedAdmin, ...staticArticles]
+    allArticles.value = combined.sort((a, b) => new Date(b.published_at) - new Date(a.published_at))
+  } catch (e) {
+    console.error('Error loading articles:', e)
+    allArticles.value = [...staticArticles]
+  }
+}
+
 const latestArticles = computed(() => {
   if (Array.isArray(props.articles) && props.articles.length) {
-    return props.articles
+    return props.articles.slice(0, 3)
   }
-  const sorted = [...allArticles].sort((a, b) => new Date(b.published_at) - new Date(a.published_at))
-  return sorted.map(a => ({
+  
+  // Return maksimal 3 artikel terbaru
+  return allArticles.value.slice(0, 3).map(a => ({
     id: a.id,
+    slug: a.slug || a.id,
     title: a.title,
     excerpt: a.excerpt,
     published_at: a.published_at,
     cover_image: a.cover_image,
     cover_image_url: a.cover_image,
-    url: `/artikel/${a.id}`,
+    url: `/artikel/${a.slug || a.id}`,
   }))
 });
 const firstArticle = computed(() => latestArticles.value[0] ?? null);
@@ -489,7 +516,17 @@ const articlesIndexHref = computed(
   () => props.articlesIndexUrl ?? '/artikel'
 );
 
+const handleArticlesUpdate = () => {
+  loadArticles()
+}
+
 onMounted(() => {
+  loadArticles()
+  
+  // Listen for article updates
+  window.addEventListener('articles-updated', handleArticlesUpdate)
+  window.addEventListener('storage', handleArticlesUpdate)
+  
   initializeHomeAnimations({
     heroContent: heroContent.value,
     heroTitle: heroTitle.value,
@@ -504,5 +541,10 @@ onMounted(() => {
     servicesTitle: servicesTitle.value,
     serviceRow1: serviceRow1.value,
   });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('articles-updated', handleArticlesUpdate)
+  window.removeEventListener('storage', handleArticlesUpdate)
 });
 </script>

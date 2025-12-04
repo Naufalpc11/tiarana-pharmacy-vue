@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <div class="bug-report-page flex flex-col gap-10">
-      <section class="bug-report-hero relative overflow-hidden rounded-[2rem] min-h-[250px] bg-gradient-to-br from-[#0d19a3] to-[#2f3df5] text-white shadow-lg shadow-indigo-500/25">
+      <section class="bug-report-hero relative overflow-hidden rounded-4xl min-h-[250px] bg-linear-to-br from-[#0d19a3] to-[#2f3df5] text-white shadow-lg shadow-indigo-500/25">
         <div class="bug-report-hero__content flex flex-col justify-center space-y-4 px-6 py-12 md:px-10 md:py-16">
           <h1 class="text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">Laporkan Bug</h1>
           <p class="max-w-3xl text-base leading-relaxed text-white/90 sm:text-lg">
@@ -10,8 +10,8 @@
         </div>
       </section>
 
-      <section class="bug-report-section rounded-[2rem] bg-white p-6 shadow-2xl shadow-indigo-900/5" aria-labelledby="bug-report-form-title">
-        <div class="bug-report-card space-y-6 rounded-[2rem] border border-slate-100 p-6 shadow-xl">
+      <section class="bug-report-section rounded-4xl bg-white p-6 shadow-2xl shadow-indigo-900/5" aria-labelledby="bug-report-form-title">
+        <div class="bug-report-card space-y-6 rounded-4xl border border-slate-100 p-6 shadow-xl">
           <h2 id="bug-report-form-title" class="text-3xl font-bold text-indigo-950">Formulir Laporan Bug</h2>
           <form class="bug-report-form space-y-6" @submit.prevent="handleSubmitIntent">
             <div class="bug-report-form__grid grid gap-6">

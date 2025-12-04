@@ -43,13 +43,11 @@
 
       
       <div
-        class="nav-links absolute left-4 right-4 top-full mt-3 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white/95 p-4
-               opacity-0 shadow-2xl shadow-slate-900/10 transition duration-200
-               pointer-events-none -translate-y-2
-               md:static md:mt-0 md:flex md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent md:p-0
-               md:opacity-100 md:shadow-none md:pointer-events-auto md:translate-y-0"
+        class="nav-links absolute left-4 right-4 top-full mt-3 flex-col gap-2 rounded-lg border border-slate-300 bg-white shadow-lg p-3 transition duration-200 max-w-[calc(100vw-2rem)]
+               md:static md:mt-0 md:flex md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent md:p-0 md:shadow-none md:max-w-none"
         :class="{
-          'pointer-events-auto translate-y-0 opacity-100': isMenuOpen
+          'flex': isMenuOpen,
+          'hidden': !isMenuOpen
         }"
         id="primary-navigation"
       >
@@ -57,8 +55,9 @@
           v-for="link in navLinks"
           :key="link.to"
           :to="link.to"
-          class="nav-link text-base font-medium text-slate-700 transition hover:text-indigo-700"
-          :class="{ 'text-indigo-700': isActive(link.to) }"
+          class="nav-link text-sm font-medium text-slate-700 transition hover:text-indigo-700 py-2 px-3 rounded-md hover:bg-slate-50
+                 md:text-base md:py-0 md:px-0 md:hover:bg-transparent"
+          :class="{ 'text-indigo-700 bg-indigo-50 md:bg-transparent': isActive(link.to) }"
           @click="closeMenu"
         >
           {{ link.label }}
@@ -124,4 +123,3 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
 })
 </script>
-  

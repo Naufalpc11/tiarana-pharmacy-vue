@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen bg-slate-50 text-slate-900">
+  <div class="min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden">
     <Header />
-    <main class="mx-auto flex min-h-screen max-w-[1440px] flex-col px-4 pb-16 pt-28 sm:px-6 lg:px-10">
+    <main class="mx-auto flex min-h-screen max-w-[1440px] flex-col px-4 pb-16 pt-28 sm:px-6 lg:px-8">
       <slot />
     </main>
     <SiteFooter />

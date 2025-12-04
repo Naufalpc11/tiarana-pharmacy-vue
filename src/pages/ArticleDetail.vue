@@ -4,53 +4,85 @@
       <template v-if="article">
         
         <header
-          class="article-hero relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden bg-cover bg-center"
+          class="article-hero relative -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden bg-cover bg-center"
           :style="heroStyle"
         >
-          <div class="absolute inset-0 bg-slate-900/70"></div>
+          <div class="absolute inset-0 bg-linear-to-b from-slate-900/80 via-slate-900/70 to-slate-900/60"></div>
           <div
             ref="heroOverlay"
-            class="relative z-10 mx-auto flex min-h-[420px] max-w-5xl flex-col justify-end gap-5 px-6 py-12 sm:px-8"
+            class="relative z-10 mx-auto flex min-h-[520px] max-w-7xl flex-col justify-end gap-6 px-6 py-16 sm:px-8 lg:py-20"
           >
             <div ref="heroBackButton" class="flex flex-wrap items-center gap-4">
-              <Button variant="white" size="sm" href="/artikel" icon-position="left">
+              <Button variant="white" size="sm" href="/artikel" icon-position="left" class="hover:scale-105 transition-transform">
                 <template #icon><span class="inline-block h-4 w-4" v-html="arrowLeftSvg" /></template>
                 Kembali
               </Button>
-              <span class="inline-flex items-center rounded-full border border-white/30 px-3 py-1 text-xs font-medium tracking-wide text-white/80 backdrop-blur">Artikel</span>
+              <span class="inline-flex items-center rounded-full border border-white/40 bg-white/10 backdrop-blur px-3 py-1 text-xs font-semibold tracking-wide text-white/90">Artikel Farmasi</span>
             </div>
-            <h1 ref="heroTitle" class="text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
-              {{ article.title }}
-            </h1>
-            <p ref="heroDate" class="text-sm font-medium tracking-wide text-white/70">
-              {{ formattedDate }}
-            </p>
+            <div class="space-y-4">
+              <h1 ref="heroTitle" class="text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl drop-shadow-lg">
+                {{ article.title }}
+              </h1>
+              <p ref="heroDate" class="text-sm sm:text-base font-semibold tracking-wide text-white/80 drop-shadow">
+                {{ formattedDate }}
+              </p>
+            </div>
           </div>
         </header>
 
         
-        <section class="mx-auto w-full max-w-5xl px-6 sm:px-8">
-          <article ref="contentCard" class="space-y-10 rounded-3xl bg-white p-8 shadow-2xl shadow-slate-900/10">
-            <div v-if="article.excerpt" class="rounded-2xl bg-indigo-50/70 p-6">
-              <p class="text-base leading-relaxed text-slate-700">{{ article.excerpt }}</p>
+        <section class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-12">
+          <article ref="contentCard" class="space-y-6 bg-white p-8 sm:p-10 lg:p-12 rounded-lg shadow-lg">
+            
+            <!-- Excerpt Section -->
+            <div v-if="article.excerpt" class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+              <p class="text-base leading-relaxed text-gray-800">{{ article.excerpt }}</p>
             </div>
+
+            <!-- Main Content -->
             <div
               v-if="bodyHtml"
-              class="prose prose-slate max-w-none prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-lg prose-h3:font-semibold prose-p:mb-4 prose-p:leading-relaxed prose-ol:mb-4 prose-ul:mb-4 prose-li:my-0 prose-strong:font-semibold"
+              class="article-content prose prose-lg max-w-none w-full
+                     prose-headings:font-bold prose-headings:text-gray-900
+                     prose-h1:text-2xl prose-h1:mb-4 prose-h1:mt-8
+                     prose-h2:text-xl prose-h2:mb-4 prose-h2:mt-7 prose-h2:font-bold
+                     prose-h3:text-lg prose-h3:mb-3 prose-h3:mt-6 prose-h3:font-bold
+                     prose-h4:text-base prose-h4:mb-2 prose-h4:mt-5 prose-h4:font-semibold
+                     prose-p:text-base prose-p:text-gray-700 prose-p:leading-[1.8] prose-p:mb-6 prose-p:text-justify prose-p:w-full
+                     prose-strong:font-semibold prose-strong:text-gray-900
+                     prose-ul:my-4 prose-ul:pl-6 prose-ul:list-disc prose-ul:w-full
+                     prose-ol:my-4 prose-ol:pl-6 prose-ol:list-decimal prose-ol:w-full
+                     prose-li:text-base prose-li:text-gray-700 prose-li:leading-[1.8] prose-li:mb-2 prose-li:text-justify
+                     prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-800
+                     *:w-full [&>div]:w-full [&>section]:w-full"
               v-html="bodyHtml"
             ></div>
+
+            <!-- Call to Action -->
+            <div class="mt-12 pt-8 border-t-2 border-slate-200 flex flex-wrap gap-4 justify-between items-center">
+              <div class="space-y-1">
+                <p class="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-widest">Artikel Selanjutnya</p>
+                <p class="text-sm sm:text-base font-bold text-slate-900">Baca artikel farmasi lainnya</p>
+              </div>
+              <Button variant="primary" href="/artikel" icon-position="right" size="md" class="hover:scale-105 transition-transform">
+                Kembali ke Daftar Artikel
+                <template #icon><span class="inline-block h-4 w-4" v-html="arrowRightSvg" /></template>
+              </Button>
+            </div>
           </article>
         </section>
       </template>
 
-      <section v-else class="mx-auto w-full max-w-3xl rounded-3xl bg-white p-10 text-center shadow-2xl">
-        <h1 class="text-3xl font-bold text-indigo-950">Artikel tidak ditemukan</h1>
-        <p class="mt-3 text-slate-500">Maaf, artikel yang Anda cari belum tersedia. Silakan kembali ke daftar artikel untuk membaca materi lainnya.</p>
-        <div class="mt-6">
-          <Button variant="primary" href="/artikel" icon-position="left" size="md">
-            <template #icon><span class="inline-block h-4 w-4" v-html="arrowLeftSvg" /></template>
-            Kembali ke Artikel
-          </Button>
+      <section v-else class="mx-auto w-full max-w-3xl rounded-3xl bg-white p-10 sm:p-12 text-center shadow-2xl">
+        <div class="space-y-6">
+          <h1 class="text-3xl sm:text-4xl font-black text-indigo-950">Artikel tidak ditemukan</h1>
+          <p class="text-lg text-slate-600">Maaf, artikel yang Anda cari tidak tersedia atau telah dihapus. Silakan kembali ke daftar artikel untuk membaca materi farmasi lainnya.</p>
+          <div class="pt-4">
+            <Button variant="primary" href="/artikel" icon-position="left" size="lg">
+              <template #icon><span class="inline-block h-4 w-4" v-html="arrowLeftSvg" /></template>
+              Kembali ke Artikel
+            </Button>
+          </div>
         </div>
       </section>
     </div>
@@ -60,6 +92,7 @@
 <script setup>
 import { initializeArticleDetailAnimations } from '@/animation/articleDetailAnimations'
 import arrowLeftSvg from '@/assets/Icon/arrow-left-solid.svg?raw'
+import arrowRightSvg from '@/assets/Icon/arrow-right-solid.svg?raw'
 import Button from '@/components/Button.vue'
 import { getArticleById } from '@/data/articles'
 import MainLayout from '@/layouts/MainLayout.vue'

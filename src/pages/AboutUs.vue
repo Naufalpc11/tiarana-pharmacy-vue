@@ -51,8 +51,6 @@
         </div>
       </header>
 
-
-      
       <section class="vision-section bg-white py-12 md:py-16">
         <div class="mx-auto max-w-3xl px-4 text-center">
           <h2 class="text-lg font-semibold text-blue-700">Visi</h2>

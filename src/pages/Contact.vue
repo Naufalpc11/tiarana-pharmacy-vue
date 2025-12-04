@@ -30,7 +30,7 @@
       </header>
 
       <section class="contact-section mx-auto mt-6 w-full max-w-6xl px-4 sm:px-6 lg:px-8" aria-labelledby="contact-form-title">
-        <div class="contact-form-card space-y-6 rounded-[2rem] border border-slate-100 p-8 shadow-xl" ref="contactFormCard">
+        <div class="contact-form-card space-y-6 rounded-4xl border border-slate-100 p-8 shadow-xl" ref="contactFormCard">
           <h2 id="contact-form-title" class="section-title text-3xl font-bold text-indigo-950">Kirim Pesan</h2>
           <form class="contact-form space-y-6" @submit.prevent="handleSubmitIntent">
             <div class="contact-form__grid grid gap-6 grid-cols-1 sm:grid-cols-2">

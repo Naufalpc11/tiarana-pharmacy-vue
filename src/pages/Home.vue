@@ -2,44 +2,45 @@
   <MainLayout>
     <div class="page-container flex flex-col gap-12">
 
-      <section
+      <header
         class="hero-bg-image relative min-h-[800px] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]
-                overflow-hidden bg-cover bg-center"
+              overflow-hidden bg-cover bg-center"
         :style="heroBackgroundStyle"
-        >
+      >
+        <div class="hero-overlay absolute inset-0 bg-linear-to-b from-slate-900/60 via-slate-900/70 to-slate-900/80"></div>
+
         <div
-            class="hero-overlay absolute inset-0 flex flex-col items-center justify-center gap-4
-                bg-gradient-to-b from-slate-900/40 via-slate-900/70 to-slate-950/80
-                px-6 py-12 text-center text-white"
-            ref="heroContent"
+          class="relative z-10 mx-auto flex min-h-[600px] max-w-4xl flex-col items-center justify-center
+                gap-6 px-4 pt-20 text-center text-white md:pt-24"
+          ref="heroContent"
         >
-            <h1
+          <h1
             class="home-title text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl"
             ref="heroTitle"
-            >
+          >
             {{ hero.title }}
-            </h1>
+          </h1>
 
-            <p
+          <p
             v-if="hero.subtitlePrimary"
-            class="home-subtitle text-lg text-white/85 sm:text-xl"
+            class="home-subtitle max-w-2xl text-lg text-white/85 sm:text-xl"
             ref="heroSubtitle1"
-            >
+          >
             {{ hero.subtitlePrimary }}
-            </p>
+          </p>
 
-            <p
+          <p
             v-if="hero.subtitleSecondary"
-            class="home-subtitle text-lg text-white/70 sm:text-xl"
+            class="home-subtitle max-w-2xl text-lg text-white/70 sm:text-xl"
             ref="heroSubtitle2"
-            >
+          >
             {{ hero.subtitleSecondary }}
-            </p>
+          </p>
         </div>
-        </section>
+      </header>
 
       <section
-        class="features-grid grid gap-6 rounded-[2rem] bg-white p-6 shadow-2xl shadow-indigo-900/5 md:grid-cols-2 lg:grid-cols-3"
+        class="features-grid grid gap-6 rounded-4xl bg-white p-6 shadow-2xl shadow-indigo-900/5 md:grid-cols-2 lg:grid-cols-3"
         ref="featuresGrid"
       >
         <FeatureHighlightCard
@@ -91,7 +92,7 @@
                     ></i>
                   </div>
 
-                  <h4 class="max-w-[11rem] text-sm md:text-base font-semibold text-slate-900 leading-snug">
+                  <h4 class="max-w-44 text-sm md:text-base font-semibold text-slate-900 leading-snug">
                     {{ feature.title }}
                   </h4>
                 </div>
@@ -102,7 +103,7 @@
 
           <div class="about-image" ref="aboutImage">
             <div
-              class="image-container h-96 rounded-[2rem] bg-cover bg-center shadow-xl shadow-indigo-900/10"
+              class="image-container h-96 rounded-4xl bg-cover bg-center shadow-xl shadow-indigo-900/10"
               :style="aboutImageStyle"
             ></div>
           </div>
@@ -156,6 +157,7 @@
 <script setup>
 import { initializeHomeAnimations } from '@/animation/homeAnimations';
 import ArticleHighlight from '@/components/ArticleHighlight.vue';
+import Button from '@/components/Button.vue';
 import FeatureHighlightCard from '@/components/FeatureHighlightCard.vue';
 import PartnerLogos from '@/components/PartnerLogos.vue';
 import ServiceCard from '@/components/ServiceCard.vue';
@@ -163,12 +165,14 @@ import { articles as staticArticles } from '@/data/articles';
 import MainLayout from '@/layouts/MainLayout.vue';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
+import arrowRightIcon from '@/assets/Icon/arrow-right-solid.svg?raw';
 import certificateIcon from '@/assets/Icon/certificate-solid-full.svg';
 import checkCircleIcon from '@/assets/Icon/circle-check-solid-full.svg';
 import clockIcon from '@/assets/Icon/clock-solid-full.svg';
 import heartPulseIcon from '@/assets/Icon/heart-pulse-solid-full.svg';
 import heartIcon from '@/assets/Icon/heart-solid-full.svg';
 import notesMedicalIcon from '@/assets/Icon/notes-medical-solid-full.svg';
+import phoneIcon from '@/assets/Icon/phone-solid.svg?raw';
 import pillsIcon from '@/assets/Icon/pills-solid-full.svg';
 import prescriptionIcon from '@/assets/Icon/prescription-bottle-medical-solid-full.svg';
 import shieldIcon from '@/assets/Icon/shield-halved-solid-full.svg';

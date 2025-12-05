@@ -78,12 +78,12 @@
                   class="flex flex-col items-center text-center"
                 >
 
-                  <div class="mb-3 text-indigo-700">
+                  <div class="mb-3 text-indigo-900">
                     <img
                       v-if="feature.iconImageUrl"
                       :src="feature.iconImageUrl"
                       :alt="`${feature.title} icon`"
-                      class="h-8 w-8 object-contain md:h-9 md:w-9"
+                      class="h-8 w-8 object-contain md:h-9 md:w-9 "
                     />
                     <i
                       v-else
@@ -165,17 +165,17 @@ import { articles as staticArticles } from '@/data/articles';
 import MainLayout from '@/layouts/MainLayout.vue';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
-import arrowRightIcon from '@/assets/Icon/arrow-right-solid.svg?raw';
-import certificateIcon from '@/assets/Icon/certificate-solid-full.svg';
-import checkCircleIcon from '@/assets/Icon/circle-check-solid-full.svg';
-import clockIcon from '@/assets/Icon/clock-solid-full.svg';
-import heartPulseIcon from '@/assets/Icon/heart-pulse-solid-full.svg';
-import heartIcon from '@/assets/Icon/heart-solid-full.svg';
-import notesMedicalIcon from '@/assets/Icon/notes-medical-solid-full.svg';
-import phoneIcon from '@/assets/Icon/phone-solid.svg?raw';
-import pillsIcon from '@/assets/Icon/pills-solid-full.svg';
-import prescriptionIcon from '@/assets/Icon/prescription-bottle-medical-solid-full.svg';
-import shieldIcon from '@/assets/Icon/shield-halved-solid-full.svg';
+const arrowRightIcon = new URL('../assets/Icon/arrow-right-solid.svg', import.meta.url).href;
+const certificateIcon = new URL('../assets/Icon/certificate-solid-full.svg', import.meta.url).href;
+const checkCircleIcon = new URL('../assets/Icon/circle-check-solid-full.svg', import.meta.url).href;
+const clockIcon = new URL('../assets/Icon/clock-solid-full.svg', import.meta.url).href;
+const heartPulseIcon = new URL('../assets/Icon/heart-pulse-solid-full.svg', import.meta.url).href;
+const heartIcon = new URL('../assets/Icon/heart-solid-full.svg', import.meta.url).href;
+const notesMedicalIcon = new URL('../assets/Icon/notes-medical-solid-full.svg', import.meta.url).href;
+const phoneIcon = new URL('../assets/Icon/phone-solid.svg', import.meta.url).href;
+const pillsIcon = new URL('../assets/Icon/pills-solid-full.svg', import.meta.url).href;
+const prescriptionIcon = new URL('../assets/Icon/prescription-bottle-medical-solid-full.svg', import.meta.url).href;
+const shieldIcon = new URL('../assets/Icon/shield-halved-solid-full.svg', import.meta.url).href;
 
 const props = defineProps({
   articles: {

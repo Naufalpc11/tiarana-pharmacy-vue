@@ -5,7 +5,7 @@
         v-if="iconImageUrl"
         :src="iconImageUrl"
         :alt="`${title} icon`"
-        :class="imgClass"
+        :class="imageClass"
       />
       <i
         v-else
@@ -32,7 +32,6 @@ const props = defineProps({
   iconImageUrl: { type: String, default: null },
   title: { type: String, required: true },
   description: { type: String, default: "" },
-
   compact: { type: Boolean, default: false },
 });
 
@@ -53,7 +52,7 @@ const iconWrapperClass = computed(() => {
   return "flex h-20 w-20 items-center justify-center rounded-full bg-indigo-100 text-indigo-900";
 });
 
-const imgClass = computed(() =>
+const imageClass = computed(() =>
   props.compact ? "h-6 w-6 object-contain" : "h-12 w-12 object-contain"
 );
 

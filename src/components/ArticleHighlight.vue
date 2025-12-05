@@ -14,22 +14,22 @@
             :style="layer.style"
           ></div>
         </transition-group>
-        <div class="media-overlay absolute inset-0 bg-gradient-to-b from-slate-900/30 to-slate-950/80"></div>
-        <div class="content relative flex min-h-[520px] flex-col justify-between gap-8 p-8 sm:p-10">
-          <div class="card-date absolute right-8 top-8 text-sm font-semibold tracking-[0.3em] text-white/80">
+        <div class="media-overlay absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-900/60 to-slate-950/90"></div>
+        <div class="content relative flex min-h-[450px] sm:min-h-[520px] flex-col justify-end gap-6 sm:gap-8 p-6 sm:p-8 md:p-10">
+          <div class="card-date absolute right-6 top-6 sm:right-8 sm:top-8 text-xs sm:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.3em] text-white/80">
             {{ displayDate }}
           </div>
 
-          <div class="text space-y-4">
-            <h3 class="text-3xl font-semibold leading-tight sm:text-4xl">{{ displayTitle }}</h3>
-            <p class="text-base leading-relaxed text-white/80">{{ displayExcerpt }}</p>
+          <div class="text space-y-3 sm:space-y-4">
+            <h3 class="text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight">{{ displayTitle }}</h3>
+            <p class="text-sm sm:text-base leading-relaxed text-white/80">{{ displayExcerpt }}</p>
           </div>
 
-          <div class="card-actions flex flex-wrap items-center justify-between gap-4">
+          <div class="card-actions flex flex-wrap items-center justify-between gap-3 sm:gap-4">
             <Button :href="primaryArticleHref" size="lg">
               Baca Artikel
             </Button>
-            <div class="nav-controls inline-flex gap-3" v-if="showNavControls">
+            <div class="nav-controls inline-flex gap-2 sm:gap-3" v-if="showNavControls">
               <CircleButton
                 :disabled="isPrevDisabled"
                 aria-label="Artikel sebelumnya"
@@ -49,15 +49,15 @@
         </div>
       </article>
 
-      <aside class="cta flex flex-col items-end justify-center gap-6 rounded-[2rem] bg-slate-100/80 p-8 text-right">
+      <aside class="cta flex flex-col items-center lg:items-end justify-center gap-6 rounded-[2rem] bg-slate-100/80 p-6 sm:p-8 text-center lg:text-right">
         <div class="cta-heading space-y-3">
-          <h2 class="bg-gradient-to-b from-indigo-600 to-indigo-900 bg-clip-text text-4xl font-extrabold leading-tight text-transparent">
+          <h2 class="bg-gradient-to-b from-indigo-600 to-indigo-900 bg-clip-text text-3xl sm:text-4xl font-extrabold leading-tight text-transparent">
             <span class="block">Dapatkan</span>
             <span class="block">Berita dan</span>
             <span class="block">Artikel</span>
             <span class="block">Terbaru</span>
           </h2>
-          <p class="text-base text-slate-600">Jelajahi informasi kesehatan terkurasi langsung dari apoteker kami.</p>
+          <p class="text-sm sm:text-base text-slate-600">Jelajahi informasi kesehatan terkurasi langsung dari apoteker kami.</p>
         </div>
         <Button :href="secondaryHref" size="lg" icon-position="right">
           Selengkapnya
@@ -235,9 +235,9 @@ const bgStyle = computed(() => {
     }
   }
 
+  // Fallback: gradient background instead of plain black
   return {
-    backgroundColor: '#000',
-    backgroundImage: 'none',
+    backgroundImage: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
   }
 })
 

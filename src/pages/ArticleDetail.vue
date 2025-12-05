@@ -4,8 +4,8 @@
       <template v-if="article">
         
         <header
-          class="article-hero relative -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden bg-cover bg-center"
-          :style="heroStyle"
+          class="article-hero relative -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden bg-cover bg-center bg-no-repeat"
+          :style="{ backgroundImage: `url(${article.cover_image})`, backgroundAttachment: 'fixed' }"
         >
           <div class="absolute inset-0 bg-linear-to-b from-slate-900/80 via-slate-900/70 to-slate-900/60"></div>
           <div
@@ -34,14 +34,11 @@
         <section class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-12">
           <article ref="contentCard" class="space-y-6 bg-white p-8 sm:p-10 lg:p-12 rounded-lg shadow-lg">
             
-            <!-- Excerpt Section -->
             <div v-if="article.excerpt" class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
               <p class="text-base leading-relaxed text-gray-800">{{ article.excerpt }}</p>
             </div>
 
-            <!-- Main Content -->
             <div
-              v-if="bodyHtml"
               class="article-content prose prose-lg max-w-none w-full
                      prose-headings:font-bold prose-headings:text-gray-900
                      prose-h1:text-2xl prose-h1:mb-4 prose-h1:mt-8
@@ -58,7 +55,6 @@
               v-html="bodyHtml"
             ></div>
 
-            <!-- Call to Action -->
             <div class="mt-12 pt-8 border-t-2 border-slate-200 flex flex-wrap gap-4 justify-between items-center">
               <div class="space-y-1">
                 <p class="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-widest">Artikel Selanjutnya</p>
@@ -99,7 +95,6 @@ import MainLayout from '@/layouts/MainLayout.vue'
 import { computed, nextTick, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-// Route param id
 const route = useRoute()
 
 const heroOverlay = ref(null)

@@ -224,13 +224,16 @@
               />
             </div>
 
-            
+            <!-- Map -->
             <div class="map-container overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/5 ring-1 ring-slate-200">
-              <img
-                :src="pageData.images.map"
-                alt="Map lokasi"
-                class="h-[340px] w-full object-cover md:h-[420px]"
-              />
+              <iframe
+                :src="pageData.location.mapEmbedURL"
+                class="h-[340px] w-full border-0 md:h-[420px]"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Lokasi Apotek Tiarana Farma"
+              ></iframe>
             </div>
           </div>
         </div>
@@ -298,6 +301,7 @@ const pageData = reactive({
     ],
   },
   location: {
+    mapEmbedURL: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8714503220267!2d116.9010663745559!3d-1.2482881355849063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df145cac72eb3bf%3A0x16844957779a9566!2sApotek%20Tiarana%20Farma!5e0!3m2!1sid!2sid!4v1759721919148!5m2!1sid!2sid',
     address:
       "Griya Asri III Jl. Sepinggan Baru RT.18/RW.12, Sepinggan Baru, Balikpapan, Kalimantan Timur 76115",
     phone: "0812-5140-996",

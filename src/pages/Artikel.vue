@@ -114,7 +114,6 @@ const fallbackImage = heroImage
 const rawArticles = ref([])
 
 const loadArticles = () => {
-  // Hanya gunakan static articles, tidak ada koneksi ke admin
   rawArticles.value = articles.map(a => ({
     id: a.id,
     title: a.title,
@@ -189,7 +188,6 @@ onMounted(async () => {
     heroSubtitle: artikelHeroSubtitle.value,
     searchBar: artikelSearchBar.value,
   })
-
 
   await nextTick()
   setTimeout(() => {

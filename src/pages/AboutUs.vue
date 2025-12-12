@@ -21,7 +21,6 @@
           <p class="home-subtitle max-w-2xl text-lg text-white/85 sm:text-xl">
             Apotek Tiarana Farma adalah apotek terpercaya yang menyediakan layanan kesehatan berkualitas dengan dukungan tim profesional.
           </p>
-
           
           <div class="mt-3 flex flex-wrap justify-center gap-4">
             <Button
@@ -224,7 +223,6 @@
               />
             </div>
 
-            <!-- Map -->
             <div class="map-container overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/5 ring-1 ring-slate-200">
               <iframe
                 :src="pageData.location.mapEmbedURL"
@@ -253,7 +251,7 @@ import { onMounted, reactive } from "vue";
 import { initializeAboutUsAnimations } from "@/animation/aboutUsAnimations";
 
 import calendarIcon from "@/assets/Icon/calendar-solid.svg?raw";
-import checkIcon from "@/assets/Icon/circle-check-solid-full.svg"; // badge kecil tetap <img>
+import checkIcon from "@/assets/Icon/circle-check-solid-full.svg"; 
 import clockIcon from "@/assets/Icon/clock-solid-full.svg?raw";
 import locationIcon from "@/assets/Icon/location-dot-solid-full.svg?raw";
 import phoneIcon from "@/assets/Icon/phone-solid.svg?raw";

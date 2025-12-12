@@ -81,6 +81,7 @@ const navLinks = [
   { label: 'Tentang Kami', to: '/about-us' },
   { label: 'Artikel', to: '/artikel' },
   { label: 'Kontak', to: '/contact' },
+  { label: 'About Me', to: '/about-me'},
 ]
 
 const logoWithoutText = new URL('../assets/Images/logo/Logo_Texed.png', import.meta.url).href

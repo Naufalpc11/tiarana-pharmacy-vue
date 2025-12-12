@@ -12,12 +12,14 @@ import Contact from "@/pages/Contact.vue";
 import Home from "@/pages/Home.vue";
 import NotFound from "@/pages/NotFound.vue";
 import ReportBug from "@/pages/ReportBug.vue";
+import AboutMe from "@/pages/AboutMe.vue";
 
 const routes = [
   { path: "/", name: "home", component: Home },
   { path: "/about-us", name: "about-us", component: AboutUs },
   { path: "/artikel", name: "artikel", component: Artikel },
   { path: "/contact", name: "contact", component: Contact },
+  { path: "/about-me", name: "about-me", component: AboutMe},
 
   {
     path: "/artikel/:id",

@@ -14,7 +14,7 @@
             :style="layer.style"
           ></div>
         </transition-group>
-        <div class="media-overlay absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-900/60 to-slate-950/90"></div>
+        <div class="media-overlay absolute inset-0 bg-linear-to-b from-slate-900/50 via-slate-900/60 to-slate-950/90"></div>
         <div class="content relative flex min-h-[450px] sm:min-h-[520px] flex-col justify-end gap-6 sm:gap-8 p-6 sm:p-8 md:p-10">
           <div class="card-date absolute right-6 top-6 sm:right-8 sm:top-8 text-xs sm:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.3em] text-white/80">
             {{ displayDate }}
@@ -49,9 +49,9 @@
         </div>
       </article>
 
-      <aside class="cta flex flex-col items-center lg:items-end justify-center gap-6 rounded-[2rem] bg-slate-100/80 p-6 sm:p-8 text-center lg:text-right">
+      <aside class="cta flex flex-col items-center lg:items-end justify-center gap-6 rounded-4xl bg-slate-100/80 p-6 sm:p-8 text-center lg:text-right">
         <div class="cta-heading space-y-3">
-          <h2 class="bg-gradient-to-b from-indigo-600 to-indigo-900 bg-clip-text text-3xl sm:text-4xl font-extrabold leading-tight text-transparent">
+          <h2 class="bg-linear-to-b from-indigo-600 to-indigo-900 bg-clip-text text-3xl sm:text-4xl font-extrabold leading-tight text-transparent">
             <span class="block">Dapatkan</span>
             <span class="block">Berita dan</span>
             <span class="block">Artikel</span>
